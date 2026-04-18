@@ -443,8 +443,8 @@
       <span class="material-icons-round">home</span>
       Home
     </a>
-    <a href="my-plan.php">
-      <span class="material-icons-round">calendar_today</span>
+<a href="myplan.php">
+        <span class="material-icons-round">calendar_today</span>
       My Plan
     </a>
     <a href="pantry.php">
@@ -463,7 +463,7 @@
       <span class="material-icons-round">account_balance_wallet</span>
       Budget
     </a>
-    <a href="grocery-list.php">
+    <a href="grocery.php">
       <span class="material-icons-round">shopping_cart</span>
       Grocery List
     </a>
