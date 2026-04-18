@@ -375,27 +375,27 @@
           <table style="width:100%;font-size:0.83rem;border-collapse:collapse;margin:14px 0 16px;">
             <tr style="border-bottom:1px solid #f0f2f5;">
               <td style="padding:8px 0;color:#7b809a;width:90px;">Monday</td>
-              <td style="padding:8px 0;color:#344767;font-weight:600;">Chicken Rice</td>
+              <td style="padding:8px 0;color:#344767;font-weight:600;">Chicken Rice, Caesar Salad</td>
             </tr>
             <tr style="border-bottom:1px solid #f0f2f5;">
               <td style="padding:8px 0;color:#7b809a;">Tuesday</td>
-              <td style="padding:8px 0;color:#344767;font-weight:600;">Caesar Salad</td>
-            </tr>
-            <tr style="border-bottom:1px solid #f0f2f5;">
-              <td style="padding:8px 0;color:#7b809a;">Wednesday</td>
               <td style="padding:8px 0;color:#344767;font-weight:600;">Spaghetti Bolognese</td>
             </tr>
             <tr style="border-bottom:1px solid #f0f2f5;">
-              <td style="padding:8px 0;color:#7b809a;">Thursday</td>
+              <td style="padding:8px 0;color:#7b809a;">Wednesday</td>
               <td style="padding:8px 0;color:#344767;font-weight:600;">Stir Fry Vegetables</td>
             </tr>
             <tr style="border-bottom:1px solid #f0f2f5;">
-              <td style="padding:8px 0;color:#7b809a;">Friday</td>
+              <td style="padding:8px 0;color:#7b809a;">Thursday</td>
               <td style="padding:8px 0;color:#344767;font-weight:600;">Grilled Salmon</td>
             </tr>
             <tr style="border-bottom:1px solid #f0f2f5;">
+              <td style="padding:8px 0;color:#7b809a;">Friday</td>
+              <td style="padding:8px 0;color:#344767;font-weight:600;">Beef Tacos</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f0f2f5;">
               <td style="padding:8px 0;color:#7b809a;">Saturday</td>
-              <td style="padding:8px 0;color:#344767;font-weight:600;">Tacos</td>
+              <td style="padding:8px 0;color:#344767;font-weight:600;">Mushroom Pasta</td>
             </tr>
             <tr>
               <td style="padding:8px 0;color:#7b809a;">Sunday</td>
