@@ -470,14 +470,14 @@
     Pantry
   </a>
 
-  <a href="#">
+  <a href="my-recipes.php">
     <span class="material-icons-round">menu_book</span>
-    Recipes
+    My Recipes
   </a>
 
-  <a href="#">
+  <a href="find-recipes.php">
     <span class="material-icons-round">search</span>
-    Find
+    Find Recipes
   </a>
 
   <a href="#">
@@ -487,7 +487,7 @@
 
   <a href="grocery.php">
     <span class="material-icons-round">shopping_cart</span>
-    Grocery
+    Grocery List
   </a>
 </nav>
 

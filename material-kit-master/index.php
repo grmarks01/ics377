@@ -305,7 +305,7 @@
       <p class="section-label">Today's Meals</p>
       <p class="section-heading">Here's what's on your plate today</p>
 
-      <a href="my-plan.php" class="meal-card">
+      <a href="myplan.php" class="meal-card">
         <div>
           <p class="meal-name">Chicken Rice</p>
           <p class="meal-meta">
@@ -320,7 +320,7 @@
         </div>
       </a>
 
-      <a href="my-plan.php" class="meal-card">
+      <a href="myplan.php" class="meal-card">
         <div>
           <p class="meal-name">Caesar Salad</p>
           <p class="meal-meta">
@@ -354,7 +354,7 @@
           <p class="widget-detail">
             <span class="highlight">2 ingredients are missing</span> for today's planned meals. Generate a grocery list to fill the gaps.
           </p>
-          <a href="grocery-list.php" class="widget-link">
+          <a href="grocery.php" class="widget-link">
             Generate Grocery List
             <span class="material-icons-round" style="font-size:1rem;">arrow_forward</span>
           </a>
@@ -402,7 +402,7 @@
               <td style="padding:8px 0;color:#344767;font-weight:600;">Roast Chicken</td>
             </tr>
           </table>
-          <a href="my-plan.php" class="widget-link">
+          <a href="myplan.php" class="widget-link">
             Edit Plan
             <span class="material-icons-round" style="font-size:1rem;">arrow_forward</span>
           </a>

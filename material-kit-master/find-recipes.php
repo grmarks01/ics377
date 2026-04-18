@@ -562,12 +562,12 @@
 
   <nav class="bottom-nav">
     <a href="index.php"><span class="material-icons-round">home</span>Home</a>
-    <a href="my-plan.php"><span class="material-icons-round">calendar_today</span>My Plan</a>
+    <a href="myplan.php"><span class="material-icons-round">calendar_today</span>My Plan</a>
     <a href="pantry.php"><span class="material-icons-round">kitchen</span>Pantry</a>
     <a href="my-recipes.php"><span class="material-icons-round">menu_book</span>My Recipes</a>
     <a href="find-recipes.php" class="active"><span class="material-icons-round">search</span>Find Recipes</a>
     <a href="budget.php"><span class="material-icons-round">account_balance_wallet</span>Budget</a>
-    <a href="grocery-list.php"><span class="material-icons-round">shopping_cart</span>Grocery List</a>
+    <a href="grocery.php"><span class="material-icons-round">shopping_cart</span>Grocery List</a>
   </nav>
 
   <footer style="text-align:center; padding: 16px; margin-bottom: 80px; font-size: 0.75rem; color: #7b809a;">
