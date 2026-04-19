@@ -9,16 +9,17 @@
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link href="assets/css/material-kit.css" rel="stylesheet">
 
   <style>
     /* ═══ BRAND COLORS ═══ */
     :root {
-      --primary: #B85042;
+      --primary:   #B85042;
       --secondary: #E7E8D1;
-      --accent: #A7BEAE;
-      --dark: #344767;
-      --text: #7b809a;
-      --bg: #f8f9fa;
+      --accent:    #A7BEAE;
+      --dark:      #344767;
+      --text:      #7b809a;
+      --bg:        #f8f9fa;
     }
 
     body { background-color: var(--bg); padding-bottom: 80px; }
@@ -112,15 +113,13 @@
     /* ── Action bar ── */
     .card-actions {
       display: flex; align-items: center; justify-content: space-around;
-      border-top: 1px solid #f0f2f5;
-      padding: 6px 4px;
+      border-top: 1px solid #f0f2f5; padding: 6px 4px;
     }
     .action-btn {
       background: none; border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       width: 36px; height: 36px; border-radius: 50%;
-      transition: background 0.15s;
-      padding: 0;
+      transition: background 0.15s; padding: 0;
     }
     .action-btn:hover { background: #f0f2f5; }
     .action-btn .material-icons-round { font-size: 1.15rem; pointer-events: none; }
@@ -133,9 +132,7 @@
     .save-btn.saved .material-icons-round { color: var(--primary); }
 
     /* Divider between action buttons */
-    .action-divider {
-      width: 1px; height: 20px; background: #e9ecef; flex-shrink: 0;
-    }
+    .action-divider { width: 1px; height: 20px; background: #e9ecef; flex-shrink: 0; }
 
     /* Recipe info */
     .recipe-info { padding: 8px 10px 10px; }
@@ -581,13 +578,19 @@
 
   <nav class="bottom-nav">
     <a href="index.php"><span class="material-icons-round">home</span>Home</a>
-    <a href="myplan.php"><span class="material-icons-round">calendar_today</span>My Plan</a>
-    <a href="pantry.php"><span class="material-icons-round">kitchen</span>Pantry</a>
+    <a href="myplan.php"><span class="material-icons-round">calendar_month</span>My Plan</a>
+    <a href="pantry.php"><span class="material-icons-round">inventory_2</span>Pantry</a>
     <a href="my-recipes.php"><span class="material-icons-round">menu_book</span>My Recipes</a>
     <a href="find-recipes.php" class="active"><span class="material-icons-round">search</span>Find Recipes</a>
     <a href="budget.php"><span class="material-icons-round">account_balance_wallet</span>Budget</a>
     <a href="grocery.php"><span class="material-icons-round">shopping_cart</span>Grocery List</a>
   </nav>
+
+  <footer style="text-align:center; padding: 16px; margin-bottom: 80px; font-size: 0.75rem; color: var(--text);">
+    Built with <a href="https://www.creative-tim.com/product/material-kit" target="_blank" style="color:var(--text); font-weight:600;">Material Kit 3</a>
+    by <a href="https://www.creative-tim.com" target="_blank" style="color:var(--text); font-weight:600;">Creative Tim</a>,
+    licensed under <a href="https://github.com/creativetimofficial/material-kit/blob/master/LICENSE.md" target="_blank" style="color:var(--text); font-weight:600;">MIT</a>.
+  </footer>
 
   <!-- Filter modal -->
   <div class="filter-backdrop" id="filterBackdrop">
@@ -634,6 +637,8 @@
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
+  <script src="assets/js/core/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/material-kit.js"></script>
   <script>
     // ── Shared localStorage key (same as my-recipes.php) ──
     const SAVED_KEY = 'mySavedRecipes_v1';

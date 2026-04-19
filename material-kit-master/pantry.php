@@ -247,6 +247,7 @@
     justify-content: space-around;
     padding: 6px 0;
     z-index: 100;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.06);
   }
 
   .bottom-nav a {
@@ -493,7 +494,7 @@
     Find Recipes
   </a>
 
-  <a href="#">
+  <a href="budget.php">
     <span class="material-icons-round">account_balance_wallet</span>
     Budget
   </a>
