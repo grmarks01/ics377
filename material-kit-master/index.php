@@ -305,35 +305,9 @@
       <p class="section-label">Today's Meals</p>
       <p class="section-heading">Here's what's on your plate today</p>
 
-      <a href="myplan.php" class="meal-card">
-        <div>
-          <p class="meal-name">Chicken Rice</p>
-          <p class="meal-meta">
-            <span class="material-icons-round" style="font-size:0.85rem;vertical-align:-2px;">schedule</span>
-            30 mins &nbsp;·&nbsp;
-            <span class="material-icons-round" style="font-size:0.85rem;vertical-align:-2px;">local_fire_department</span>
-            480 cal
-          </p>
-        </div>
-        <div class="make-now-btn">
-          Make Now <span class="material-icons-round">arrow_forward</span>
-        </div>
-      </a>
-
-      <a href="myplan.php" class="meal-card">
-        <div>
-          <p class="meal-name">Caesar Salad</p>
-          <p class="meal-meta">
-            <span class="material-icons-round" style="font-size:0.85rem;vertical-align:-2px;">schedule</span>
-            15 mins &nbsp;·&nbsp;
-            <span class="material-icons-round" style="font-size:0.85rem;vertical-align:-2px;">local_fire_department</span>
-            320 cal
-          </p>
-        </div>
-        <div class="make-now-btn">
-          Make Now <span class="material-icons-round">arrow_forward</span>
-        </div>
-      </a>
+      <div id="todays-meals-container">
+        <!-- populated from localStorage by JS -->
+      </div>
     </div>
 
     <!-- ── COLLAPSIBLE WIDGETS ── -->
@@ -372,35 +346,8 @@
           <span class="material-icons-round chevron">expand_more</span>
         </button>
         <div class="collapse-body" style="display:none;">
-          <table style="width:100%;font-size:0.83rem;border-collapse:collapse;margin:14px 0 16px;">
-            <tr style="border-bottom:1px solid #f0f2f5;">
-              <td style="padding:8px 0;color:#7b809a;width:90px;">Monday</td>
-              <td style="padding:8px 0;color:#344767;font-weight:600;">Chicken Rice, Caesar Salad</td>
-            </tr>
-            <tr style="border-bottom:1px solid #f0f2f5;">
-              <td style="padding:8px 0;color:#7b809a;">Tuesday</td>
-              <td style="padding:8px 0;color:#344767;font-weight:600;">Spaghetti Bolognese</td>
-            </tr>
-            <tr style="border-bottom:1px solid #f0f2f5;">
-              <td style="padding:8px 0;color:#7b809a;">Wednesday</td>
-              <td style="padding:8px 0;color:#344767;font-weight:600;">Stir Fry Vegetables</td>
-            </tr>
-            <tr style="border-bottom:1px solid #f0f2f5;">
-              <td style="padding:8px 0;color:#7b809a;">Thursday</td>
-              <td style="padding:8px 0;color:#344767;font-weight:600;">Grilled Salmon</td>
-            </tr>
-            <tr style="border-bottom:1px solid #f0f2f5;">
-              <td style="padding:8px 0;color:#7b809a;">Friday</td>
-              <td style="padding:8px 0;color:#344767;font-weight:600;">Beef Tacos</td>
-            </tr>
-            <tr style="border-bottom:1px solid #f0f2f5;">
-              <td style="padding:8px 0;color:#7b809a;">Saturday</td>
-              <td style="padding:8px 0;color:#344767;font-weight:600;">Mushroom Pasta</td>
-            </tr>
-            <tr>
-              <td style="padding:8px 0;color:#7b809a;">Sunday</td>
-              <td style="padding:8px 0;color:#344767;font-weight:600;">Roast Chicken</td>
-            </tr>
+          <table id="plan-table" style="width:100%;font-size:0.83rem;border-collapse:collapse;margin:14px 0 16px;">
+            <!-- populated from localStorage by JS -->
           </table>
           <a href="myplan.php" class="widget-link">
             Edit Plan
@@ -484,10 +431,10 @@
   <script src="assets/js/material-kit.js"></script>
 
   <script>
+    // ── Collapse toggles ──
     function toggleCard(btn) {
       var body = btn.nextElementSibling;
       var isOpen = btn.getAttribute('aria-expanded') === 'true';
-
       if (isOpen) {
         body.style.display = 'none';
         btn.setAttribute('aria-expanded', 'false');
@@ -496,6 +443,70 @@
         btn.setAttribute('aria-expanded', 'true');
       }
     }
+
+    // ── Read plan from localStorage (same key as myplan.php) ──
+    const PLAN_KEY = 'myPlanItems_v2';
+    const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const DAY_FULL  = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+    const defaultPlan = [
+      { day: 'Mon', date: 22, meal: 'Chicken Rice',  time: 30, calories: 480, cost: 12 },
+      { day: 'Tue', date: 23, meal: '', time: '', calories: '', cost: '' },
+      { day: 'Wed', date: 24, meal: '', time: '', calories: '', cost: '' },
+      { day: 'Thu', date: 25, meal: '', time: '', calories: '', cost: '' },
+      { day: 'Fri', date: 26, meal: '', time: '', calories: '', cost: '' },
+      { day: 'Sat', date: 27, meal: '', time: '', calories: '', cost: '' },
+      { day: 'Sun', date: 28, meal: '', time: '', calories: '', cost: '' }
+    ];
+
+    const planItems = JSON.parse(localStorage.getItem(PLAN_KEY)) || defaultPlan;
+
+    // ── Today's Meals ──
+    // JS getDay(): 0=Sun,1=Mon,...,6=Sat → plan index: Mon=0,...,Sun=6
+    const todayIdx = (new Date().getDay() + 6) % 7;
+    const todayItem = planItems[todayIdx];
+    const container = document.getElementById('todays-meals-container');
+
+    if (todayItem && todayItem.meal) {
+      container.innerHTML = `
+        <a href="myplan.php" class="meal-card">
+          <div>
+            <p class="meal-name">${todayItem.meal}</p>
+            <p class="meal-meta">
+              <span class="material-icons-round" style="font-size:0.85rem;vertical-align:-2px;">schedule</span>
+              ${todayItem.time !== '–' ? todayItem.time + ' mins' : '–'} &nbsp;·&nbsp;
+              <span class="material-icons-round" style="font-size:0.85rem;vertical-align:-2px;">local_fire_department</span>
+              ${todayItem.calories !== '–' ? todayItem.calories + ' cal' : '–'}
+            </p>
+          </div>
+          <div class="make-now-btn">
+            Make Now <span class="material-icons-round">arrow_forward</span>
+          </div>
+        </a>`;
+    } else {
+      container.innerHTML = `
+        <a href="myplan.php" class="meal-card" style="justify-content:center;color:#7b809a;">
+          <span class="material-icons-round" style="margin-right:8px;">calendar_today</span>
+          No meal planned for today — <strong style="margin-left:4px;">Add one</strong>
+        </a>`;
+    }
+
+    // ── My Plan widget table ──
+    const table = document.getElementById('plan-table');
+    let rows = '';
+    planItems.forEach((item, i) => {
+      const isLast = i === planItems.length - 1;
+      const isToday = i === todayIdx;
+      rows += `<tr${isLast ? '' : ' style="border-bottom:1px solid #f0f2f5;"'}>
+        <td style="padding:8px 0;color:${isToday ? '#e74c3c' : '#7b809a'};width:90px;font-weight:${isToday ? '700' : '400'};">
+          ${DAY_FULL[i]}
+        </td>
+        <td style="padding:8px 0;color:#344767;font-weight:600;">
+          ${item.meal || '<span style="color:#9aa2b1;font-weight:400;font-style:italic;">No meal planned</span>'}
+        </td>
+      </tr>`;
+    });
+    table.innerHTML = rows;
   </script>
 
 </body>

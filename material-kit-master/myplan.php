@@ -383,7 +383,7 @@
     </div>
 
     <div class="top-actions">
-      <div class="icon-action" onclick="openAddMealModalForDay(0)">
+      <div class="icon-action" onclick="goPickRecipe(0)">
         <span class="material-icons-round">add_circle</span>
         Add Meal
       </div>
@@ -392,7 +392,7 @@
 
   <div class="helper-card">
     <div class="helper-text">Need meal ideas before planning your week?</div>
-    <a class="helper-link" href="#">Go to Find Recipes</a>
+    <a class="helper-link" href="find-recipes.php">Go to Find Recipes</a>
   </div>
 
   <div class="week-bar">
@@ -436,24 +436,6 @@
 
 </div>
 
-<div class="modal" id="mealModal">
-  <div class="modal-box">
-    <h2 class="modal-title">Add Meal</h2>
-
-    <input type="hidden" id="mealDayIndex">
-
-    <input id="mealName" class="modal-input" placeholder="Meal name (ex: Chicken Rice)">
-    <input id="mealTime" class="modal-input" placeholder="Cook time in mins (ex: 30)">
-    <input id="mealCalories" class="modal-input" placeholder="Calories (ex: 480)">
-    <input id="mealCost" class="modal-input" placeholder="Estimated cost (ex: 12)">
-
-    <div class="modal-actions">
-      <button class="modal-btn primary" onclick="saveMeal()">Save Meal</button>
-      <button class="modal-btn" onclick="closeMealModal()">Close</button>
-    </div>
-  </div>
-</div>
-
 <nav class="bottom-nav">
   <a href="index.php">
     <span class="material-icons-round">home</span>
@@ -480,7 +462,7 @@
     Find Recipes
   </a>
 
-  <a href="#">
+  <a href="budget.php">
     <span class="material-icons-round">account_balance_wallet</span>
     Budget
   </a>
@@ -561,8 +543,8 @@
           <div>
             ${
               item.meal
-                ? `<button class="plan-btn" onclick="openAddMealModalForDay(${index})">Edit Meal</button>`
-                : `<button class="plan-btn primary" onclick="openAddMealModalForDay(${index})">Add Meal</button>`
+                ? `<button class="plan-btn" onclick="${pendingRecipe ? 'addPendingToDay(' + index + ')' : 'goPickRecipe(' + index + ')' }">${pendingRecipe ? 'Add Here' : 'Edit Meal'}</button>`
+                : `<button class="plan-btn primary" onclick="${pendingRecipe ? 'addPendingToDay(' + index + ')' : 'goPickRecipe(' + index + ')' }">${pendingRecipe ? 'Add Here' : 'Add Meal'}</button>`
             }
           </div>
 
@@ -595,47 +577,29 @@
     document.getElementById("totalCost").innerText = "$" + totalCost.toFixed(2);
   }
 
-  function openAddMealModalForDay(index) {
-    document.getElementById("mealDayIndex").value = index;
-    document.getElementById("mealName").value = planItems[index].meal || "";
-    document.getElementById("mealTime").value = planItems[index].time || "";
-    document.getElementById("mealCalories").value = planItems[index].calories || "";
-    document.getElementById("mealCost").value = planItems[index].cost || "";
-    document.getElementById("mealModal").style.display = "flex";
+  // ── Navigate to My Recipes to pick a recipe for this day ──
+  function goPickRecipe(index) {
+    const item = planItems[index];
+    window.location.href = 'my-recipes.php?day=' + index
+      + '&dayName=' + encodeURIComponent(item.day)
+      + '&date=' + encodeURIComponent(item.date);
   }
 
-  function closeMealModal() {
-    document.getElementById("mealModal").style.display = "none";
-  }
-
-  function saveMeal() {
-    const index = Number(document.getElementById("mealDayIndex").value);
-    const mealName = document.getElementById("mealName").value.trim();
-    const mealTime = document.getElementById("mealTime").value.trim();
-    const mealCalories = document.getElementById("mealCalories").value.trim();
-    const mealCost = document.getElementById("mealCost").value.trim();
-
-    if (!mealName || !mealTime || !mealCalories || !mealCost) {
-      alert("Please fill out all meal fields.");
-      return;
-    }
-
+  // ── Directly save the pending recipe to a specific day ──
+  function addPendingToDay(index) {
+    if (!pendingRecipe) return;
     const wasEmpty = !planItems[index].meal;
-
-    planItems[index].meal = mealName;
-    planItems[index].time = mealTime;
-    planItems[index].calories = mealCalories;
-    planItems[index].cost = mealCost;
-
+    planItems[index].meal     = pendingRecipe;
+    planItems[index].time     = planItems[index].time     || '–';
+    planItems[index].calories = planItems[index].calories || '–';
+    planItems[index].cost     = planItems[index].cost     || '–';
     savePlan();
-    closeMealModal();
+    pendingRecipe = null;
+    // Clean URL
+    window.history.replaceState({}, '', 'myplan.php');
     renderPlan();
-
-    if (wasEmpty) {
-      showToast(`Meal added to ${planItems[index].day}`);
-    } else {
-      showToast("Meal updated");
-    }
+    const item = planItems[index];
+    showToast((wasEmpty ? 'Added to ' : 'Updated ') + item.day + ', ' + item.date);
   }
 
   function removeMeal(index) {
@@ -669,8 +633,49 @@
     showToast("Week changed");
   }
 
+  // ── Handle incoming recipe from My Recipes / Find Recipes ──
+  let pendingRecipe = null;
+
+  (function handleIncomingRecipe() {
+    const params     = new URLSearchParams(window.location.search);
+    const recipeName = params.get('add');
+    const dayIndex   = params.get('day');
+
+    if (!recipeName) return;
+
+    window.history.replaceState({}, '', 'myplan.php');
+
+    if (dayIndex !== null) {
+      // Flow B (My Plan → My Recipes → back): auto-save to specific day
+      const idx = parseInt(dayIndex, 10);
+      if (idx >= 0 && idx < planItems.length) {
+        const wasEmpty = !planItems[idx].meal;
+        planItems[idx].meal     = decodeURIComponent(recipeName);
+        planItems[idx].time     = planItems[idx].time     || '–';
+        planItems[idx].calories = planItems[idx].calories || '–';
+        planItems[idx].cost     = planItems[idx].cost     || '–';
+        savePlan();
+        const item = planItems[idx];
+        setTimeout(() => showToast(
+          (wasEmpty ? 'Added to ' : 'Updated ') + item.day + ', ' + item.date
+        ), 300);
+      }
+    } else {
+      // Flow A (My Recipes/Find Recipes → My Plan): enter pick-a-day mode
+      pendingRecipe = decodeURIComponent(recipeName);
+    }
+  })();
+
   document.getElementById("weekTitle").innerText = `Monday ${weekStart} - Sunday ${weekStart + 6}`;
   renderPlan();
+
+  // Show pick-a-day banner after render if in pending mode
+  if (pendingRecipe) {
+    const banner = document.createElement('div');
+    banner.style.cssText = 'background:#344767;color:#fff;padding:12px 20px;text-align:center;font-size:0.88rem;font-weight:600;margin-bottom:16px;border-radius:12px;';
+    banner.textContent = 'Select a day to add "' + pendingRecipe + '"';
+    document.getElementById('planList').insertAdjacentElement('beforebegin', banner);
+  }
 </script>
 
 </body>
