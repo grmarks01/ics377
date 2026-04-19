@@ -290,7 +290,8 @@
   <!-- SEARCH BAR — all screen sizes -->
   <div class="search-wrapper">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="🔍  Search Recipes...">
+      <input type="text" id="dashSearch" class="form-control" placeholder="🔍  Search Recipes..."
+             onkeydown="if(event.key==='Enter' && this.value.trim()) window.location.href='find-recipes.php'">
     </div>
   </div>
 
