@@ -462,8 +462,8 @@
     const planItems = JSON.parse(localStorage.getItem(PLAN_KEY)) || defaultPlan;
 
     // ── Today's Meals ──
-    // JS getDay(): 0=Sun,1=Mon,...,6=Sat → plan index: Mon=0,...,Sun=6
-    const todayIdx = (new Date().getDay() + 6) % 7;
+    // Hardcoded to Monday (index 0) for demo — replace with dynamic date when backend is added
+    const todayIdx = 0; // Monday = 0
     const todayItem = planItems[todayIdx];
     const container = document.getElementById('todays-meals-container');
 
