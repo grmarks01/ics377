@@ -9,10 +9,19 @@
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-  <link href="assets/css/material-kit.css" rel="stylesheet">
 
   <style>
-    body { background-color: #f8f9fa; padding-bottom: 80px; }
+    /* ═══ BRAND COLORS ═══ */
+    :root {
+      --primary: #B85042;
+      --secondary: #E7E8D1;
+      --accent: #A7BEAE;
+      --dark: #344767;
+      --text: #7b809a;
+      --bg: #f8f9fa;
+    }
+
+    body { background-color: var(--bg); padding-bottom: 80px; }
 
     /* ── Top header ── */
     .app-header {
@@ -21,7 +30,7 @@
     }
     .app-header h5 {
       margin: 0; font-size: 1.6rem; font-weight: 800;
-      color: #344767; text-align: center; letter-spacing: -0.5px;
+      color: var(--primary); text-align: center; letter-spacing: -0.5px;
     }
 
     /* ── Search bar ── */
@@ -47,7 +56,7 @@
       background: #f0f2f5; border: none; border-radius: 50%;
       width: 44px; height: 44px; display: flex; align-items: center;
       justify-content: center; flex-shrink: 0; cursor: pointer;
-      transition: background 0.15s; color: #344767;
+      transition: background 0.15s; color: var(--dark);
     }
     .filter-btn:hover { background: #e2e5e9; }
     .filter-btn .material-icons-round { font-size: 1.3rem; }
@@ -61,11 +70,11 @@
       gap: 16px; padding: 0 20px; margin-bottom: 14px;
     }
     .cat-label-wrap { flex: 1; text-align: center; }
-    .cat-label { font-size: 1.1rem; font-weight: 700; color: #344767; margin: 0; }
+    .cat-label { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin: 0; }
 
     .scroll-arrow {
       background: none; border: none; padding: 4px; cursor: pointer;
-      color: #344767; display: flex; align-items: center; border-radius: 50%;
+      color: var(--dark); display: flex; align-items: center; border-radius: 50%;
       transition: background 0.15s, color 0.15s; flex-shrink: 0;
     }
     .scroll-arrow:hover { background: #e9ecef; }
@@ -117,11 +126,11 @@
     .action-btn .material-icons-round { font-size: 1.15rem; pointer-events: none; }
 
     /* + Add to Plan */
-    .add-btn .material-icons-round { color: #344767; }
+    .add-btn .material-icons-round { color: var(--primary); }
 
     /* Bookmark */
     .save-btn .material-icons-round { color: #c8ccd4; transition: color 0.2s; }
-    .save-btn.saved .material-icons-round { color: #344767; }
+    .save-btn.saved .material-icons-round { color: var(--primary); }
 
     /* Divider between action buttons */
     .action-divider {
@@ -130,9 +139,9 @@
 
     /* Recipe info */
     .recipe-info { padding: 8px 10px 10px; }
-    .recipe-name { font-size: 0.82rem; font-weight: 700; color: #344767; margin: 0 0 3px; line-height: 1.25; }
+    .recipe-name { font-size: 0.82rem; font-weight: 700; color: var(--dark); margin: 0 0 3px; line-height: 1.25; }
     .recipe-meta {
-      font-size: 0.72rem; color: #7b809a; margin: 0;
+      font-size: 0.72rem; color: var(--text); margin: 0;
       display: flex; align-items: center; gap: 3px; flex-wrap: wrap;
     }
     .recipe-meta .material-icons-round { font-size: 0.8rem; vertical-align: -2px; }
@@ -152,12 +161,12 @@
     }
     .bottom-nav a {
       display: flex; flex-direction: column; align-items: center;
-      text-decoration: none; color: #7b809a; font-size: 0.55rem;
+      text-decoration: none; color: var(--text); font-size: 0.55rem;
       font-weight: 500; gap: 2px; flex: 1; transition: color 0.2s;
     }
     .bottom-nav a .material-icons-round { font-size: 1.4rem; }
-    .bottom-nav a.active { color: #e74c3c; }
-    .bottom-nav a:hover { color: #344767; }
+    .bottom-nav a.active { color: var(--primary); }
+    .bottom-nav a:hover { color: var(--dark); }
 
     /* ── Filter sheet ── */
     .filter-backdrop {
@@ -172,27 +181,27 @@
     .filter-sheet-header {
       display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
     }
-    .filter-sheet-header h6 { font-size: 1.05rem; font-weight: 700; color: #344767; margin: 0; }
+    .filter-sheet-header h6 { font-size: 1.05rem; font-weight: 700; color: var(--dark); margin: 0; }
     .filter-close-btn {
       background: #f0f2f5; border: none; border-radius: 50%;
       width: 32px; height: 32px; display: flex; align-items: center;
-      justify-content: center; cursor: pointer; color: #344767;
+      justify-content: center; cursor: pointer; color: var(--dark);
     }
     .filter-close-btn .material-icons-round { font-size: 1.1rem; }
     .filter-group-label {
       font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.07em; color: #7b809a; margin: 16px 0 8px;
+      letter-spacing: 0.07em; color: var(--text); margin: 16px 0 8px;
     }
     .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
     .filter-chip {
       background: #f0f2f5; border: none; border-radius: 50px; padding: 7px 16px;
-      font-size: 0.8rem; font-weight: 500; color: #344767; cursor: pointer;
+      font-size: 0.8rem; font-weight: 500; color: var(--dark); cursor: pointer;
       transition: background 0.15s, color 0.15s;
     }
-    .filter-chip.selected { background: #e74c3c; color: #fff; }
+    .filter-chip.selected { background: var(--primary); color: #fff; }
     .filter-apply-btn {
       margin-top: 24px; width: 100%;
-      background: linear-gradient(195deg, #42424a, #191919);
+      background: linear-gradient(195deg, var(--primary), #962f22);
       color: #fff; border: none; border-radius: 10px; padding: 13px;
       font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s;
     }
@@ -210,18 +219,18 @@
       max-width: 320px; width: 100%; text-align: center;
       box-shadow: 0 8px 32px rgba(0,0,0,0.14);
     }
-    .confirm-dialog .confirm-icon { font-size: 2.4rem; color: #344767; margin-bottom: 12px; }
-    .confirm-dialog h6 { font-size: 1rem; font-weight: 700; color: #344767; margin: 0 0 8px; }
-    .confirm-dialog p { font-size: 0.85rem; color: #7b809a; margin: 0 0 24px; line-height: 1.5; }
+    .confirm-dialog .confirm-icon { font-size: 2.4rem; color: var(--dark); margin-bottom: 12px; }
+    .confirm-dialog h6 { font-size: 1rem; font-weight: 700; color: var(--dark); margin: 0 0 8px; }
+    .confirm-dialog p { font-size: 0.85rem; color: var(--text); margin: 0 0 24px; line-height: 1.5; }
     .confirm-actions { display: flex; gap: 10px; }
     .confirm-cancel {
       flex: 1; background: #f0f2f5; border: none; border-radius: 10px;
-      padding: 12px; font-size: 0.88rem; font-weight: 600; color: #344767;
+      padding: 12px; font-size: 0.88rem; font-weight: 600; color: var(--dark);
       cursor: pointer; transition: background 0.15s;
     }
     .confirm-cancel:hover { background: #e2e5e9; }
     .confirm-remove {
-      flex: 1; background: #e74c3c; border: none; border-radius: 10px;
+      flex: 1; background: var(--primary); border: none; border-radius: 10px;
       padding: 12px; font-size: 0.88rem; font-weight: 600; color: #fff;
       cursor: pointer; transition: opacity 0.15s;
     }
@@ -230,7 +239,7 @@
     /* ── Toast notification ── */
     .toast {
       position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
-      background: #344767; color: #fff; padding: 10px 20px; border-radius: 50px;
+      background: var(--dark); color: #fff; padding: 10px 20px; border-radius: 50px;
       font-size: 0.82rem; font-weight: 600; z-index: 500;
       opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap;
     }
@@ -580,12 +589,6 @@
     <a href="grocery.php"><span class="material-icons-round">shopping_cart</span>Grocery List</a>
   </nav>
 
-  <footer style="text-align:center; padding: 16px; margin-bottom: 80px; font-size: 0.75rem; color: #7b809a;">
-    Built with <a href="https://www.creative-tim.com/product/material-kit" target="_blank" style="color:#7b809a; font-weight:600;">Material Kit 3</a>
-    by <a href="https://www.creative-tim.com" target="_blank" style="color:#7b809a; font-weight:600;">Creative Tim</a>,
-    licensed under <a href="https://github.com/creativetimofficial/material-kit/blob/master/LICENSE.md" target="_blank" style="color:#7b809a; font-weight:600;">MIT</a>.
-  </footer>
-
   <!-- Filter modal -->
   <div class="filter-backdrop" id="filterBackdrop">
     <div class="filter-sheet">
@@ -631,8 +634,6 @@
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
-  <script src="assets/js/core/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/material-kit.js"></script>
   <script>
     // ── Shared localStorage key (same as my-recipes.php) ──
     const SAVED_KEY = 'mySavedRecipes_v1';
@@ -659,7 +660,7 @@
     if (_dayIdx !== null && _dayName) {
       // Show a subtle banner so users know they're in "picking" mode
       const info = document.createElement('div');
-      info.style.cssText = 'background:#344767;color:#fff;padding:10px 20px;text-align:center;font-size:0.85rem;font-weight:600;';
+      info.style.cssText = 'background:var(--dark);color:#fff;padding:10px 20px;text-align:center;font-size:0.85rem;font-weight:600;';
       info.innerHTML = 'Selecting a recipe for ' + _dayName + ', ' + _date
         + ' &nbsp;·&nbsp; <a href="myplan.php" style="color:#f0f2f5;text-decoration:underline;">Cancel</a>';
       document.querySelector('.search-wrapper').insertAdjacentElement('beforebegin', info);
