@@ -427,6 +427,31 @@
 </nav>
 
 <script>
+  const RECIPE_DATA = {
+    'Avocado Toast':    { time: 8,  cal: 290, cost: 3.50 },
+    'Asparagus Soup':   { time: 35, cal: 180, cost: 5.00 },
+    'Bean Tacos':       { time: 20, cal: 340, cost: 7.00 },
+    'Caesar Salad':     { time: 15, cal: 320, cost: 6.00 },
+    'Chicken Rice':     { time: 30, cal: 480, cost: 12.00 },
+    'Egg Fried Rice':   { time: 15, cal: 380, cost: 8.00 },
+    'Greek Salad':      { time: 10, cal: 220, cost: 5.00 },
+    'Grilled Corn':     { time: 20, cal: 200, cost: 4.00 },
+    'Lentil Stew':      { time: 40, cal: 290, cost: 6.00 },
+    'Mushroom Pasta':   { time: 25, cal: 510, cost: 9.00 },
+    'Omelette':         { time: 10, cal: 280, cost: 4.00 },
+    'Pasta Primavera':  { time: 25, cal: 420, cost: 8.00 },
+    'Pea Risotto':      { time: 40, cal: 520, cost: 11.00 },
+    'Peanut Noodles':   { time: 15, cal: 380, cost: 7.00 },
+    'Quesadilla':       { time: 12, cal: 430, cost: 6.00 },
+    'Rice & Beans':     { time: 30, cal: 320, cost: 5.00 },
+    'Spring Pasta':     { time: 25, cal: 490, cost: 9.00 },
+    'Strawberry Salad': { time: 10, cal: 160, cost: 5.00 },
+    'Tomato Soup':      { time: 25, cal: 210, cost: 5.00 },
+    'Tuna Wrap':        { time: 10, cal: 310, cost: 6.00 },
+    'Veggie Soup':      { time: 35, cal: 180, cost: 5.00 },
+    'Veggie Stir Fry':  { time: 20, cal: 310, cost: 7.00 },
+  };
+
   const PLAN_KEY = "myPlanItems_v2";
 
   const defaultPlan = [
@@ -484,7 +509,7 @@
               item.meal
                 ? `
                   <div class="meal-name">${item.meal}</div>
-                  <div class="meal-meta">${item.time} mins • ${item.calories} cal • $${item.cost}</div>
+                  <div class="meal-meta">${item.time} mins &nbsp;·&nbsp; ${item.calories} cal &nbsp;·&nbsp; $${item.cost}</div>
                 `
                 : `
                   <div class="meal-name meal-empty">No meal planned</div>
@@ -530,7 +555,6 @@
     document.getElementById("totalCost").innerText = "$" + totalCost.toFixed(2);
   }
 
-  // ── Navigate to My Recipes to pick a recipe for this day ──
   function goPickRecipe(index) {
     const item = planItems[index];
     window.location.href = 'my-recipes.php?day=' + index
@@ -538,17 +562,18 @@
       + '&date=' + encodeURIComponent(item.date);
   }
 
-  // ── Directly save the pending recipe to a specific day ──
   function addPendingToDay(index) {
     if (!pendingRecipe) return;
+    const rd       = RECIPE_DATA[pendingRecipe] || {};
     const wasEmpty = !planItems[index].meal;
+
     planItems[index].meal     = pendingRecipe;
-    planItems[index].time     = planItems[index].time     || '–';
-    planItems[index].calories = planItems[index].calories || '–';
-    planItems[index].cost     = planItems[index].cost     || '–';
+    planItems[index].time     = rd.time  ?? planItems[index].time     ?? '–';
+    planItems[index].calories = rd.cal   ?? planItems[index].calories ?? '–';
+    planItems[index].cost     = rd.cost  ?? planItems[index].cost     ?? '–';
+
     savePlan();
     pendingRecipe = null;
-    // Clean URL
     window.history.replaceState({}, '', 'myplan.php');
     renderPlan();
     const item = planItems[index];
@@ -561,10 +586,10 @@
       return;
     }
 
-    planItems[index].meal = "";
-    planItems[index].time = "";
+    planItems[index].meal     = "";
+    planItems[index].time     = "";
     planItems[index].calories = "";
-    planItems[index].cost = "";
+    planItems[index].cost     = "";
 
     savePlan();
     renderPlan();
@@ -586,7 +611,6 @@
     showToast("Week changed");
   }
 
-  // ── Handle incoming recipe from My Recipes / Find Recipes ──
   let pendingRecipe = null;
 
   (function handleIncomingRecipe() {
@@ -598,15 +622,17 @@
 
     window.history.replaceState({}, '', 'myplan.php');
 
+    const name = decodeURIComponent(recipeName);
+    const rd   = RECIPE_DATA[name] || {};
+
     if (dayIndex !== null) {
-      // Flow B (My Plan → My Recipes → back): auto-save to specific day
       const idx = parseInt(dayIndex, 10);
       if (idx >= 0 && idx < planItems.length) {
         const wasEmpty = !planItems[idx].meal;
-        planItems[idx].meal     = decodeURIComponent(recipeName);
-        planItems[idx].time     = planItems[idx].time     || '–';
-        planItems[idx].calories = planItems[idx].calories || '–';
-        planItems[idx].cost     = planItems[idx].cost     || '–';
+        planItems[idx].meal     = name;
+        planItems[idx].time     = rd.time  ?? planItems[idx].time     ?? '–';
+        planItems[idx].calories = rd.cal   ?? planItems[idx].calories ?? '–';
+        planItems[idx].cost     = rd.cost  ?? planItems[idx].cost     ?? '–';
         savePlan();
         const item = planItems[idx];
         setTimeout(() => showToast(
@@ -614,15 +640,13 @@
         ), 300);
       }
     } else {
-      // Flow A (My Recipes/Find Recipes → My Plan): enter pick-a-day mode
-      pendingRecipe = decodeURIComponent(recipeName);
+      pendingRecipe = name;
     }
   })();
 
   document.getElementById("weekTitle").innerText = `Monday ${weekStart} - Sunday ${weekStart + 6}`;
   renderPlan();
 
-  // Show pick-a-day banner after render if in pending mode
   if (pendingRecipe) {
     const banner = document.createElement('div');
     banner.style.cssText = 'background:#344767;color:#fff;padding:12px 20px;text-align:center;font-size:0.88rem;font-weight:600;margin-bottom:16px;border-radius:12px;';
