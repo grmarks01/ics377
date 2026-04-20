@@ -10,8 +10,18 @@
 <link href="assets/css/material-kit.css" rel="stylesheet">
 
 <style>
+    :root {
+      --primary:   #B85042;
+      --secondary: #E7E8D1;
+      --accent:    #A7BEAE;
+      --dark:      #344767;
+      --text:      #7b809a;
+      --bg:        #f8f9fa;
+    }
+
   body {
-    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg);
     padding-bottom: 95px;
   }
 
@@ -30,16 +40,16 @@
   }
 
   .page-title {
-    font-size: 2.1rem;
-    font-weight: 700;
-    color: #344767;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
     margin: 0;
   }
 
   .page-subtitle {
     margin-top: 4px;
     font-size: 0.9rem;
-    color: #7b809a;
+    color: var(--text);
   }
 
   .top-actions {
@@ -51,7 +61,7 @@
   .icon-action {
     text-align: center;
     font-size: 0.72rem;
-    color: #344767;
+    color: var(--dark);
     cursor: pointer;
     min-width: 58px;
   }
@@ -76,13 +86,13 @@
   }
 
   .helper-text {
-    color: #67748e;
+    color: var(--text);
     font-size: 0.9rem;
   }
 
   .helper-link {
     background: #eef2f7;
-    color: #344767;
+    color: var(--dark);
     text-decoration: none;
     border-radius: 12px;
     padding: 10px 14px;
@@ -106,7 +116,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #344767;
+    color: var(--dark);
     cursor: pointer;
     user-select: none;
     font-weight: 600;
@@ -119,12 +129,12 @@
   .week-title {
     font-size: 1.05rem;
     font-weight: 700;
-    color: #344767;
+    color: var(--dark);
   }
 
   .week-subtitle {
     font-size: 0.85rem;
-    color: #7b809a;
+    color: var(--text);
     margin-top: 2px;
   }
 
@@ -155,25 +165,25 @@
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    color: #344767;
+    color: var(--dark);
   }
 
   .day-name {
     font-weight: 700;
-    color: #344767;
+    color: var(--dark);
     font-size: 1rem;
   }
 
   .meal-name {
     font-weight: 600;
-    color: #344767;
+    color: var(--dark);
     font-size: 1rem;
   }
 
   .meal-meta {
     margin-top: 4px;
     font-size: 0.82rem;
-    color: #7b809a;
+    color: var(--text);
   }
 
   .meal-empty {
@@ -184,7 +194,7 @@
   .plan-btn {
     border: none;
     background: #eef2f7;
-    color: #344767;
+    color: var(--dark);
     border-radius: 14px;
     padding: 10px 16px;
     font-weight: 600;
@@ -192,13 +202,13 @@
   }
 
   .plan-btn.primary {
-    background: #344767;
+    background: var(--dark);
     color: white;
   }
 
   .delete-btn {
     cursor: pointer;
-    color: #e74c3c;
+    color: var(--primary);
     text-align: center;
     display: flex;
     justify-content: center;
@@ -221,20 +231,20 @@
 
   .summary-title {
     font-size: 0.9rem;
-    color: #7b809a;
+    color: var(--text);
     margin-bottom: 6px;
   }
 
   .summary-value {
     font-size: 1.35rem;
     font-weight: 700;
-    color: #344767;
+    color: var(--dark);
   }
 
   .summary-subtext {
     margin-top: 6px;
     font-size: 0.82rem;
-    color: #7b809a;
+    color: var(--text);
   }
 
   .bottom-nav {
@@ -255,7 +265,7 @@
     flex: 1;
     text-align: center;
     font-size: 0.55rem;
-    color: #7b809a;
+    color: var(--text);
     text-decoration: none;
     display: flex;
     flex-direction: column;
@@ -267,7 +277,7 @@
   }
 
   .bottom-nav a.active {
-    color: #e74c3c;
+    color: var(--primary);
   }
 
   .empty-message {
@@ -275,7 +285,7 @@
     background: white;
     border-radius: 18px;
     padding: 20px;
-    color: #67748e;
+    color: var(--text);
     text-align: center;
     box-shadow: 0 3px 10px rgba(0,0,0,0.05);
   }
@@ -284,7 +294,7 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #344767;
+    background: var(--dark);
     color: white;
     padding: 12px 16px;
     border-radius: 12px;

@@ -8,7 +8,7 @@
   <title>Meal Planner – Home</title>
 
   <!-- Google Fonts & Material Icons -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
   <!-- Material Kit CSS -->
@@ -200,8 +200,8 @@
       padding: 2px 8px;
       border-radius: 20px;
     }
-    .badge-warn { background: #fdecea; color: #e74c3c; }
-    .badge-over { background: #fdecea; color: #e74c3c; }
+    .badge-warn { background: #fdecea; color: var(--primary); }
+    .badge-over { background: #fdecea; color: var(--primary); }
     .badge-ok   { background: #e8f5e9; color: #4CAF50; }
     .collapse-card .chevron {
       font-size: 1.2rem;

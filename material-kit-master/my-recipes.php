@@ -7,20 +7,30 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Meal Planner – My Recipes</title>
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <link href="assets/css/material-kit.css" rel="stylesheet">
 
   <style>
-    body { background-color: #f8f9fa; padding-bottom: 80px; }
+    :root {
+      --primary:   #B85042;
+      --secondary: #E7E8D1;
+      --accent:    #A7BEAE;
+      --dark:      #344767;
+      --text:      #7b809a;
+      --bg:        #f8f9fa;
+    }
+
+    body { font-family: 'Roboto', sans-serif;
+    background-color: var(--bg); padding-bottom: 80px; }
 
     .app-header {
       background: #fff; border-bottom: 1px solid #e9ecef;
       padding: 22px 16px 18px; position: sticky; top: 0; z-index: 100;
     }
-    .app-header h5 {
+    .app-header h1 {
       margin: 0; font-size: 1.6rem; font-weight: 800;
-      color: #344767; text-align: center; letter-spacing: -0.5px;
+      color: var(--primary); text-align: center; letter-spacing: -0.5px;
     }
 
     .search-wrapper {
@@ -45,7 +55,7 @@
       background: #f0f2f5; border: none; border-radius: 50%;
       width: 44px; height: 44px; display: flex; align-items: center;
       justify-content: center; flex-shrink: 0; cursor: pointer;
-      transition: background 0.15s; color: #344767;
+      transition: background 0.15s; color: var(--dark);
     }
     .filter-btn:hover { background: #e2e5e9; }
     .filter-btn .material-icons-round { font-size: 1.3rem; }
@@ -58,15 +68,15 @@
       gap: 16px; padding: 0 20px; margin-bottom: 14px;
     }
     .cat-label-wrap { flex: 1; text-align: center; }
-    .cat-label { font-size: 1.1rem; font-weight: 700; color: #344767; margin: 0 0 2px; }
+    .cat-label { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin: 0 0 2px; }
     .sort-badge {
-      font-size: 0.65rem; font-weight: 600; color: #7b809a;
+      font-size: 0.65rem; font-weight: 600; color: var(--text);
       background: #f0f2f5; border-radius: 20px; padding: 2px 8px; white-space: nowrap;
     }
 
     .scroll-arrow {
       background: none; border: none; padding: 4px; cursor: pointer;
-      color: #344767; display: flex; align-items: center; border-radius: 50%;
+      color: var(--dark); display: flex; align-items: center; border-radius: 50%;
       transition: background 0.15s, color 0.15s; flex-shrink: 0;
     }
     .scroll-arrow:hover { background: #e9ecef; }
@@ -82,7 +92,7 @@
 
     .empty-state {
       flex: 0 0 100%; text-align: center; padding: 24px 0;
-      color: #7b809a; font-size: 0.85rem;
+      color: var(--text); font-size: 0.85rem;
     }
     .empty-state .material-icons-round { font-size: 2.4rem; color: #d0d4da; display: block; margin-bottom: 8px; }
 
@@ -124,20 +134,20 @@
     .action-divider { width: 1px; height: 20px; background: #e9ecef; flex-shrink: 0; }
 
     /* + Add to Plan */
-    .add-btn .material-icons-round { color: #344767; }
+    .add-btn .material-icons-round { color: var(--dark); }
 
     /* Bookmark — always filled (already saved in My Recipes) */
-    .save-btn .material-icons-round { color: #344767; }
+    .save-btn .material-icons-round { color: var(--dark); }
 
     /* Heart */
     .heart-btn .material-icons-round { color: #c8ccd4; transition: color 0.2s; }
-    .heart-btn.favorited .material-icons-round { color: #e74c3c; }
+    .heart-btn.favorited .material-icons-round { color: var(--primary); }
 
     /* Recipe info */
     .recipe-info { padding: 8px 10px 10px; }
-    .recipe-name { font-size: 0.82rem; font-weight: 700; color: #344767; margin: 0 0 3px; line-height: 1.25; }
+    .recipe-name { font-size: 0.82rem; font-weight: 700; color: var(--dark); margin: 0 0 3px; line-height: 1.25; }
     .recipe-meta {
-      font-size: 0.72rem; color: #7b809a; margin: 0;
+      font-size: 0.72rem; color: var(--text); margin: 0;
       display: flex; align-items: center; gap: 3px; flex-wrap: wrap;
     }
     .recipe-meta .material-icons-round { font-size: 0.8rem; vertical-align: -2px; }
@@ -162,12 +172,12 @@
     }
     .bottom-nav a {
       display: flex; flex-direction: column; align-items: center;
-      text-decoration: none; color: #7b809a; font-size: 0.55rem;
+      text-decoration: none; color: var(--text); font-size: 0.55rem;
       font-weight: 500; gap: 2px; flex: 1; transition: color 0.2s;
     }
     .bottom-nav a .material-icons-round { font-size: 1.4rem; }
-    .bottom-nav a.active { color: #e74c3c; }
-    .bottom-nav a:hover { color: #344767; }
+    .bottom-nav a.active { color: var(--primary); }
+    .bottom-nav a:hover { color: var(--dark); }
 
     /* ── Filter sheet ── */
     .filter-backdrop {
@@ -180,27 +190,27 @@
       padding: 20px 24px 36px; max-width: 680px; margin: 0 auto;
     }
     .filter-sheet-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-    .filter-sheet-header h6 { font-size: 1.05rem; font-weight: 700; color: #344767; margin: 0; }
+    .filter-sheet-header h6 { font-size: 1.05rem; font-weight: 700; color: var(--dark); margin: 0; }
     .filter-close-btn {
       background: #f0f2f5; border: none; border-radius: 50%;
       width: 32px; height: 32px; display: flex; align-items: center;
-      justify-content: center; cursor: pointer; color: #344767;
+      justify-content: center; cursor: pointer; color: var(--dark);
     }
     .filter-close-btn .material-icons-round { font-size: 1.1rem; }
     .filter-group-label {
       font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.07em; color: #7b809a; margin: 16px 0 8px;
+      letter-spacing: 0.07em; color: var(--text); margin: 16px 0 8px;
     }
     .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
     .filter-chip {
       background: #f0f2f5; border: none; border-radius: 50px; padding: 7px 16px;
-      font-size: 0.8rem; font-weight: 500; color: #344767; cursor: pointer;
+      font-size: 0.8rem; font-weight: 500; color: var(--dark); cursor: pointer;
       transition: background 0.15s, color 0.15s;
     }
-    .filter-chip.selected { background: #e74c3c; color: #fff; }
+    .filter-chip.selected { background: var(--primary); color: #fff; }
     .filter-apply-btn {
       margin-top: 24px; width: 100%;
-      background: linear-gradient(195deg, #42424a, #191919);
+      background: linear-gradient(195deg, var(--primary), #962f22);
       color: #fff; border: none; border-radius: 10px; padding: 13px;
       font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s;
     }
@@ -218,18 +228,18 @@
       max-width: 320px; width: 100%; text-align: center;
       box-shadow: 0 8px 32px rgba(0,0,0,0.14);
     }
-    .confirm-dialog .confirm-icon { font-size: 2.4rem; color: #344767; margin-bottom: 12px; }
-    .confirm-dialog h6 { font-size: 1rem; font-weight: 700; color: #344767; margin: 0 0 8px; }
-    .confirm-dialog p { font-size: 0.85rem; color: #7b809a; margin: 0 0 24px; line-height: 1.5; }
+    .confirm-dialog .confirm-icon { font-size: 2.4rem; color: var(--dark); margin-bottom: 12px; }
+    .confirm-dialog h6 { font-size: 1rem; font-weight: 700; color: var(--dark); margin: 0 0 8px; }
+    .confirm-dialog p { font-size: 0.85rem; color: var(--text); margin: 0 0 24px; line-height: 1.5; }
     .confirm-actions { display: flex; gap: 10px; }
     .confirm-cancel {
       flex: 1; background: #f0f2f5; border: none; border-radius: 10px;
-      padding: 12px; font-size: 0.88rem; font-weight: 600; color: #344767;
+      padding: 12px; font-size: 0.88rem; font-weight: 600; color: var(--dark);
       cursor: pointer; transition: background 0.15s;
     }
     .confirm-cancel:hover { background: #e2e5e9; }
     .confirm-remove {
-      flex: 1; background: #e74c3c; border: none; border-radius: 10px;
+      flex: 1; background: var(--primary); border: none; border-radius: 10px;
       padding: 12px; font-size: 0.88rem; font-weight: 600; color: #fff;
       cursor: pointer; transition: opacity 0.15s;
     }
@@ -238,7 +248,7 @@
     /* ── Toast ── */
     .toast {
       position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
-      background: #344767; color: #fff; padding: 10px 20px; border-radius: 50px;
+      background: var(--dark); color: #fff; padding: 10px 20px; border-radius: 50px;
       font-size: 0.82rem; font-weight: 600; z-index: 500;
       opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap;
     }
@@ -249,7 +259,7 @@
 <body>
 
   <div class="app-header">
-    <h5><span class="material-icons-round" style="font-size:1.6rem;vertical-align:-4px;margin-right:6px;">menu_book</span>My Recipes</h5>
+    <h1><span class="material-icons-round" style="font-size:1.6rem;vertical-align:-4px;margin-right:6px;">menu_book</span>My Recipes</h1>
   </div>
 
   <div class="search-wrapper">

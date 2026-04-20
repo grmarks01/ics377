@@ -10,8 +10,18 @@
 <link href="assets/css/material-kit.css" rel="stylesheet">
 
 <style>
+    :root {
+      --primary:   #B85042;
+      --secondary: #E7E8D1;
+      --accent:    #A7BEAE;
+      --dark:      #344767;
+      --text:      #7b809a;
+      --bg:        #f8f9fa;
+    }
+
   body {
-    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg);
     padding-bottom: 95px;
   }
 
@@ -21,25 +31,30 @@
     padding: 24px;
   }
 
-  .top-row {
+  /* ── Sticky app header ── */
+  .app-header {
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+    padding: 18px 20px 14px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 18px;
   }
 
   .page-title {
-    font-size: 2.1rem;
-    font-weight: 700;
-    color: #344767;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2e7d32;
     margin: 0;
   }
 
   .page-subtitle {
     margin-top: 4px;
     font-size: 0.9rem;
-    color: #7b809a;
+    color: var(--text);
   }
 
   .top-actions {
@@ -51,7 +66,7 @@
   .icon-action {
     text-align: center;
     font-size: 0.72rem;
-    color: #344767;
+    color: var(--dark);
     cursor: pointer;
     min-width: 58px;
   }
@@ -76,13 +91,13 @@
   }
 
   .helper-text {
-    color: #67748e;
+    color: var(--text);
     font-size: 0.9rem;
   }
 
   .helper-link {
     background: #eef2f7;
-    color: #344767;
+    color: var(--dark);
     text-decoration: none;
     border-radius: 12px;
     padding: 10px 14px;
@@ -107,7 +122,7 @@
     background: #eef2f7;
     padding: 14px 18px;
     font-size: 1rem;
-    color: #344767;
+    color: var(--dark);
   }
 
   .filter-btn {
@@ -119,7 +134,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: #344767;
+    color: var(--dark);
     position: relative;
   }
 
@@ -127,7 +142,7 @@
     content: "";
     width: 10px;
     height: 10px;
-    background: #e74c3c;
+    background: var(--primary);
     border-radius: 50%;
     position: absolute;
     top: 6px;
@@ -150,7 +165,7 @@
   .filter-option {
     padding: 12px 16px;
     cursor: pointer;
-    color: #344767;
+    color: var(--dark);
     font-size: 0.95rem;
   }
 
@@ -160,7 +175,7 @@
 
   .filter-option.selected {
     background: #eef2f7;
-    color: #e74c3c;
+    color: var(--primary);
     font-weight: 600;
   }
 
@@ -169,7 +184,7 @@
     margin-bottom: 10px;
     font-size: 1rem;
     font-weight: 700;
-    color: #67748e;
+    color: var(--text);
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
@@ -200,13 +215,13 @@
   }
 
   .check-btn.checked {
-    background: #344767;
-    border-color: #344767;
+    background: var(--dark);
+    border-color: var(--dark);
   }
 
   .item-name {
     font-weight: 600;
-    color: #344767;
+    color: var(--dark);
     font-size: 1rem;
     line-height: 1.2;
   }
@@ -214,7 +229,7 @@
   .item-meta {
     margin-top: 4px;
     font-size: 0.8rem;
-    color: #7b809a;
+    color: var(--text);
   }
 
   .checked-text {
@@ -225,7 +240,7 @@
   .item-price {
     text-align: center;
     font-weight: 600;
-    color: #344767;
+    color: var(--dark);
   }
 
   .qty-controls {
@@ -246,19 +261,19 @@
     cursor: pointer;
     user-select: none;
     font-weight: bold;
-    color: #344767;
+    color: var(--dark);
   }
 
   .qty-number {
     min-width: 16px;
     text-align: center;
     font-weight: 600;
-    color: #344767;
+    color: var(--dark);
   }
 
   .delete-btn {
     cursor: pointer;
-    color: #e74c3c;
+    color: var(--primary);
     text-align: center;
     display: flex;
     justify-content: center;
@@ -275,7 +290,7 @@
   }
 
   .total-label {
-    color: #7b809a;
+    color: var(--text);
     font-size: 0.95rem;
   }
 
@@ -283,7 +298,7 @@
     margin-top: 6px;
     font-size: 1.45rem;
     font-weight: 700;
-    color: #344767;
+    color: var(--dark);
   }
 
   .empty-message {
@@ -291,7 +306,7 @@
     background: white;
     border-radius: 18px;
     padding: 20px;
-    color: #67748e;
+    color: var(--text);
     text-align: center;
     box-shadow: 0 3px 10px rgba(0,0,0,0.05);
   }
@@ -308,49 +323,73 @@
 
   .modal-box {
     background: white;
-    padding: 24px;
+    width: 520px;
+    max-width: 94%;
+    max-height: 88vh;
     border-radius: 18px;
-    width: 430px;
-    max-width: 92%;
+    padding: 0;
     box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .modal-header {
+    padding: 22px 24px 0;
+    flex-shrink: 0;
+  }
+
+  .modal-search {
+    margin: 14px 24px 0;
+    flex-shrink: 0;
+  }
+
+  #popupIngredientList {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 24px 8px;
+    min-height: 0;
+  }
+
+  .popup-actions {
+    padding: 16px 24px 20px;
+    border-top: 1px solid #f0f2f5;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .modal {
+      align-items: flex-end;
+    }
+    .modal-box {
+      max-width: 100%;
+      width: 100%;
+      max-height: 82vh;
+      border-radius: 20px 20px 0 0;
+    }
   }
 
   .modal-title {
     margin: 0 0 16px 0;
     font-size: 1.6rem;
     font-weight: 700;
-    color: #344767;
+    color: var(--dark);
   }
 
-  .modal-input {
-    width: 100%;
-    margin-bottom: 12px;
-    padding: 12px 14px;
-    border-radius: 12px;
+  /* popup-btn kept from pantry-style */
+
+  .popup-btn {
     border: none;
     background: #eef2f7;
-    outline: none;
-  }
-
-  .modal-actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 12px;
-  }
-
-  .modal-btn {
-    border: none;
-    background: #eef2f7;
-    color: #344767;
-    border-radius: 12px;
-    padding: 10px 18px;
+    color: var(--dark);
+    border-radius: 14px;
+    padding: 12px 22px;
     font-weight: 600;
     cursor: pointer;
   }
 
-  .modal-btn.primary {
-    background: #344767;
+  .popup-btn.primary {
+    background: var(--dark);
     color: white;
   }
 
@@ -372,7 +411,7 @@
     flex: 1;
     text-align: center;
     font-size: 0.55rem;
-    color: #7b809a;
+    color: var(--text);
     text-decoration: none;
     display: flex;
     flex-direction: column;
@@ -384,14 +423,14 @@
   }
 
   .bottom-nav a.active {
-    color: #e74c3c;
+    color: var(--primary);
   }
 
   .toast {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #344767;
+    background: var(--dark);
     color: white;
     padding: 12px 16px;
     border-radius: 12px;
@@ -401,6 +440,99 @@
     font-size: 0.9rem;
     font-weight: 600;
   }
+
+  @media (max-width: 600px) {
+    .app-shell {
+      padding: 14px;
+    }
+    .grocery-card {
+      grid-template-columns: 36px 1fr 36px;
+      grid-template-rows: auto auto;
+    }
+    .grocery-card .item-price {
+      display: none;
+    }
+    .grocery-card .qty-controls {
+      grid-column: 3;
+      grid-row: 1 / 3;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .grocery-card .delete-btn {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .page-title {
+      font-size: 1.6rem;
+    }
+  }
+
+
+  /* ── Popup ingredient list ── */
+  .popup-category-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text);
+    margin: 14px 0 6px;
+  }
+
+  .ingredient-row {
+    display: grid;
+    grid-template-columns: 30px 28px 30px 1fr 64px;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .ingredient-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: #eef2f7;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ingredient-count {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--dark);
+  }
+
+  .ingredient-name {
+    font-size: 0.92rem;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .unit-input {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background: #eef2f7;
+    padding: 4px 6px;
+    font-size: 0.78rem;
+    color: var(--text);
+    width: 100%;
+    outline: none;
+    text-align: center;
+  }
+
+  .unit-input:focus {
+    border-color: var(--primary);
+    color: var(--dark);
+  }
+
 </style>
 </head>
 
@@ -408,21 +540,20 @@
 
 <div class="toast" id="toastMessage"></div>
 
-<div class="app-shell">
-
-  <div class="top-row">
-    <div>
-      <h1 class="page-title">Grocery List</h1>
-      <div class="page-subtitle">Track items you still need to buy</div>
-    </div>
-
-    <div class="top-actions">
-      <div class="icon-action" onclick="openModal()">
-        <span class="material-icons-round">add_circle</span>
-        Add Item
-      </div>
+<div class="app-header">
+  <div>
+    <h1 class="page-title">Grocery List</h1>
+    <div class="page-subtitle">Track items you still need to buy</div>
+  </div>
+  <div class="top-actions">
+    <div class="icon-action" onclick="openModal()">
+      <span class="material-icons-round">add_circle</span>
+      Add Item
     </div>
   </div>
+</div>
+
+<div class="app-shell">
 
   <div class="helper-card">
     <div class="helper-text">Already bought something? It can move into your pantry.</div>
@@ -442,11 +573,14 @@
     </div>
 
     <div class="filter-menu" id="filterMenu">
-      <div class="filter-option" id="filter-all" onclick="setFilter('all')">All Items</div>
-      <div class="filter-option" id="filter-unchecked" onclick="setFilter('unchecked')">Unchecked Only</div>
-      <div class="filter-option" id="filter-checked" onclick="setFilter('checked')">Checked Only</div>
-      <div class="filter-option" id="filter-produce" onclick="setFilter('Produce')">Produce</div>
-      <div class="filter-option" id="filter-proteins" onclick="setFilter('Proteins')">Proteins</div>
+      <div class="filter-option" id="filter-all"       onclick="setFilter('all')">All Items</div>
+      <div class="filter-option" id="filter-unchecked"  onclick="setFilter('unchecked')">Unchecked Only</div>
+      <div class="filter-option" id="filter-checked"    onclick="setFilter('checked')">Checked Only</div>
+      <div class="filter-option" id="filter-Produce"    onclick="setFilter('Produce')">Produce</div>
+      <div class="filter-option" id="filter-Proteins"   onclick="setFilter('Proteins')">Proteins</div>
+      <div class="filter-option" id="filter-Grains"     onclick="setFilter('Grains')">Grains</div>
+      <div class="filter-option" id="filter-Dairy"      onclick="setFilter('Dairy')">Dairy</div>
+      <div class="filter-option" id="filter-Staples"    onclick="setFilter('Staples')">Staples</div>
     </div>
   </div>
 
@@ -461,16 +595,24 @@
 
 <div class="modal" id="modal">
   <div class="modal-box">
-    <h2 class="modal-title">Add Item</h2>
+    <div class="modal-header">
+      <h2 class="modal-title">Add to Grocery List</h2>
+      <button class="close-x" onclick="closeModal()">×</button>
+    </div>
 
-    <input id="name" class="modal-input" placeholder="Name">
-    <input id="category" class="modal-input" placeholder="Category (Produce or Proteins)">
-    <input id="price" class="modal-input" placeholder="Price">
-    <input id="qty" class="modal-input" placeholder="Qty">
+    <input
+      class="modal-search"
+      type="text"
+      id="popupSearch"
+      placeholder="Search ingredients..."
+      oninput="renderPopupList()"
+    >
 
-    <div class="modal-actions">
-      <button class="modal-btn primary" onclick="addItem()">Add</button>
-      <button class="modal-btn" onclick="closeModal()">Close</button>
+    <div id="popupIngredientList"></div>
+
+    <div class="popup-actions">
+      <button class="popup-btn primary" onclick="addSelectedToGrocery()">Add Selected</button>
+      <button class="popup-btn" onclick="closeModal()">Close</button>
     </div>
   </div>
 </div>
@@ -517,13 +659,56 @@
   const PANTRY_KEY = "pantryItems";
 
   const defaultItems = [
-    {name:"Garlic Bulbs (Individual)", category:"Produce", price:1.00, qty:2, checked:false},
-    {name:"Onions, Yellow 3 lb Bag", category:"Produce", price:2.99, qty:1, checked:false},
-    {name:"Ground Beef, Tube, 2 lb", category:"Proteins", price:5.00, qty:1, checked:false}
+    {name:"Garlic",      category:"Produce",  unit:"bulb", price:0.50, qty:2, checked:false},
+    {name:"Onions",      category:"Produce",  unit:"lb",   price:1.20, qty:1, checked:false},
+    {name:"Ground Beef", category:"Proteins", unit:"lb",   price:5.00, qty:1, checked:false}
   ];
 
   let items = JSON.parse(localStorage.getItem(KEY)) || defaultItems;
   let currentFilter = "all";
+
+  // ── Shared ingredient catalog ──────────────────────────────
+  const INGREDIENT_CATALOG = [
+    // Produce
+    {name:"Avocado",          category:"Produce",  unit:"each",   price:1.50},
+    {name:"Bell Pepper",      category:"Produce",  unit:"each",   price:1.29},
+    {name:"Broccoli",         category:"Produce",  unit:"head",   price:1.99},
+    {name:"Garlic",           category:"Produce",  unit:"bulb",   price:0.50},
+    {name:"Green Onion",      category:"Produce",  unit:"bunch",  price:0.99},
+    {name:"Lemon",            category:"Produce",  unit:"each",   price:0.79},
+    {name:"Mushrooms",        category:"Produce",  unit:"lb",     price:2.99},
+    {name:"Onions",           category:"Produce",  unit:"lb",     price:1.20},
+    {name:"Spinach",          category:"Produce",  unit:"bag",    price:3.49},
+    {name:"Tomatoes",         category:"Produce",  unit:"lb",     price:1.50},
+    // Proteins
+    {name:"Chicken Breast",   category:"Proteins", unit:"lb",     price:4.99},
+    {name:"Eggs",             category:"Proteins", unit:"dozen",  price:3.99},
+    {name:"Ground Beef",      category:"Proteins", unit:"lb",     price:5.00},
+    {name:"Salmon",           category:"Proteins", unit:"lb",     price:8.99},
+    {name:"Tuna",             category:"Proteins", unit:"can",    price:1.50},
+    // Grains
+    {name:"Basmati Rice",     category:"Grains",   unit:"cups",   price:1.20},
+    {name:"Bread",            category:"Grains",   unit:"loaf",   price:2.99},
+    {name:"Brown Rice",       category:"Grains",   unit:"cups",   price:0.90},
+    {name:"Jasmine Rice",     category:"Grains",   unit:"cups",   price:1.00},
+    {name:"Pasta",            category:"Grains",   unit:"box",    price:1.29},
+    // Dairy
+    {name:"Butter",           category:"Dairy",    unit:"stick",  price:1.50},
+    {name:"Cheddar Cheese",   category:"Dairy",    unit:"block",  price:4.99},
+    {name:"Greek Yogurt",     category:"Dairy",    unit:"cup",    price:1.49},
+    {name:"Milk",             category:"Dairy",    unit:"gallon", price:3.49},
+    // Staples
+    {name:"Black Pepper",     category:"Staples",  unit:"jar",    price:2.49},
+    {name:"Garlic Powder",    category:"Staples",  unit:"jar",    price:1.99},
+    {name:"Olive Oil",        category:"Staples",  unit:"bottle", price:5.99},
+    {name:"Salt",             category:"Staples",  unit:"box",    price:0.99},
+    {name:"Soy Sauce",        category:"Staples",  unit:"bottle", price:2.99},
+    {name:"Tomato Sauce",     category:"Staples",  unit:"can",    price:1.49},
+  ];
+
+  // Working copy for popup qty & editable units (reset each open)
+  let popupSelections = [];
+
 
   function save() {
     localStorage.setItem(KEY, JSON.stringify(items));
@@ -572,8 +757,11 @@
     if (type === "all") showToast("Showing all grocery items");
     if (type === "unchecked") showToast("Filter applied: Unchecked Only");
     if (type === "checked") showToast("Filter applied: Checked Only");
-    if (type === "Produce") showToast("Filter applied: Produce");
-    if (type === "Proteins") showToast("Filter applied: Proteins");
+    if (type === "Produce")  showToast("Filter: Produce");
+    if (type === "Proteins") showToast("Filter: Proteins");
+    if (type === "Grains")   showToast("Filter: Grains");
+    if (type === "Dairy")    showToast("Filter: Dairy");
+    if (type === "Staples")  showToast("Filter: Staples");
   }
 
   function render() {
@@ -593,7 +781,8 @@
       filteredItems = filteredItems.filter(item => item.checked);
     }
 
-    if (currentFilter === "Produce" || currentFilter === "Proteins") {
+    const CAT_FILTERS = new Set(["Produce","Proteins","Grains","Dairy","Staples"]);
+    if (CAT_FILTERS.has(currentFilter)) {
       filteredItems = filteredItems.filter(item => item.category === currentFilter);
     }
 
@@ -633,7 +822,7 @@
 
             <div>
               <div class="item-name ${item.checked ? 'checked-text' : ''}">${item.name}</div>
-              <div class="item-meta">${item.category}</div>
+              <div class="item-meta">${item.unit || item.category}</div>
             </div>
 
             <div class="item-price">$${item.price.toFixed(2)}</div>
@@ -677,36 +866,86 @@
     showToast("Item removed");
   }
 
+
+  // ── Popup open/close ───────────────────────────────────────
   function openModal() {
+    // Reset selections from catalog
+    popupSelections = INGREDIENT_CATALOG.map(item => ({
+      ...item, qty: 0
+    }));
+    renderPopupList();
     document.getElementById("modal").style.display = "flex";
+    document.getElementById("popupSearch").value = "";
   }
 
   function closeModal() {
     document.getElementById("modal").style.display = "none";
   }
 
-  function addItem() {
-    let name = document.getElementById("name").value.trim();
-    let category = document.getElementById("category").value.trim();
-    let price = parseFloat(document.getElementById("price").value);
-    let qty = parseInt(document.getElementById("qty").value);
+  // ── Render searchable ingredient list ─────────────────────
+  function renderPopupList() {
+    const list  = document.getElementById("popupIngredientList");
+    const query = document.getElementById("popupSearch").value.toLowerCase().trim();
 
-    if (!name || !category || isNaN(price) || isNaN(qty)) {
-      alert("Fill everything");
+    const filtered = popupSelections.filter(item =>
+      item.name.toLowerCase().includes(query) ||
+      item.category.toLowerCase().includes(query)
+    );
+
+    if (filtered.length === 0) {
+      list.innerHTML = '<div style="color:var(--text);font-size:0.85rem;padding:10px 0;">No ingredients found.</div>';
       return;
     }
 
-    items.push({name, category, price, qty, checked:false});
+    // Group by category
+    const cats = [...new Set(filtered.map(i => i.category))];
+    let html = "";
+    cats.forEach(cat => {
+      html += `<div class="popup-category-label">${cat}</div>`;
+      filtered.filter(i => i.category === cat).forEach(item => {
+        const idx = popupSelections.indexOf(item);
+        html += `
+          <div class="ingredient-row">
+            <button class="ingredient-btn" onclick="changePopupQty(${idx},1)">+</button>
+            <div class="ingredient-count">${item.qty}</div>
+            <button class="ingredient-btn" onclick="changePopupQty(${idx},-1)">-</button>
+            <div class="ingredient-name">${item.name}</div>
+            <input class="unit-input" value="${item.unit}" onchange="popupSelections[${idx}].unit=this.value" title="Edit unit">
+          </div>`;
+      });
+    });
+    list.innerHTML = html;
+  }
 
-    document.getElementById("name").value = "";
-    document.getElementById("category").value = "";
-    document.getElementById("price").value = "";
-    document.getElementById("qty").value = "";
+  function changePopupQty(idx, amount) {
+    popupSelections[idx].qty = Math.max(0, popupSelections[idx].qty + amount);
+    renderPopupList();
+  }
 
+  // ── Add selected to grocery list ──────────────────────────
+  function addSelectedToGrocery() {
+    let addedAny = false;
+    popupSelections.forEach(sel => {
+      if (sel.qty <= 0) return;
+      const ei = items.findIndex(i => i.name === sel.name);
+      if (ei !== -1) {
+        items[ei].qty += sel.qty;
+      } else {
+        items.push({
+          name: sel.name,
+          category: sel.category,
+          unit: sel.unit,
+          price: sel.price,
+          qty: sel.qty,
+          checked: false
+        });
+      }
+      addedAny = true;
+    });
     save();
-    closeModal();
     render();
-    showToast("Item added");
+    closeModal();
+    showToast(addedAny ? "Items added to grocery list" : "No items selected");
   }
 
   /* =========================================
@@ -728,7 +967,8 @@
     } else {
       pantryItems.push({
         name: groceryItem.name,
-        sub: groceryItem.category,
+        category: groceryItem.category,
+        sub: groceryItem.unit || groceryItem.category,
         qty: groceryItem.qty
       });
     }

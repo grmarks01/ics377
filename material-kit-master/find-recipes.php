@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Meal Planner – Find Recipes</title>
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <link href="assets/css/material-kit.css" rel="stylesheet">
 
@@ -22,14 +22,15 @@
       --bg:        #f8f9fa;
     }
 
-    body { background-color: var(--bg); padding-bottom: 80px; }
+    body { font-family: 'Roboto', sans-serif;
+    background-color: var(--bg); padding-bottom: 80px; }
 
     /* ── Top header ── */
     .app-header {
       background: #fff; border-bottom: 1px solid #e9ecef;
       padding: 22px 16px 18px; position: sticky; top: 0; z-index: 100;
     }
-    .app-header h5 {
+    .app-header h1 {
       margin: 0; font-size: 1.6rem; font-weight: 800;
       color: var(--primary); text-align: center; letter-spacing: -0.5px;
     }
@@ -247,7 +248,7 @@
 <body>
 
   <div class="app-header">
-    <h5><span class="material-icons-round" style="font-size:1.6rem;vertical-align:-4px;margin-right:6px;">search</span>Find Recipes</h5>
+    <h1><span class="material-icons-round" style="font-size:1.6rem;vertical-align:-4px;margin-right:6px;">search</span>Find Recipes</h1>
   </div>
 
   <div class="search-wrapper">

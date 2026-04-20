@@ -15,11 +15,21 @@
 <link href="assets/css/material-kit.css" rel="stylesheet">
 
 <style>
+    :root {
+      --primary:   #B85042;
+      --secondary: #E7E8D1;
+      --accent:    #A7BEAE;
+      --dark:      #344767;
+      --text:      #7b809a;
+      --bg:        #f8f9fa;
+    }
+
   /* =========================
      WHOLE PAGE
      ========================= */
   body {
-    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg);
     padding-bottom: 90px; /* leaves room for bottom nav */
   }
 
@@ -30,32 +40,55 @@
     padding: 20px;
   }
 
+  /* ── Sticky app header ── */
+  .app-header {
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+    padding: 18px 20px 14px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
   /* =========================
      TOP HEADER AREA
      ========================= */
   .page-title {
     font-size: 2rem;
-    font-weight: 700;
-    color: #344767;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 0;
   }
 
   .page-subtitle {
-    margin-top: 4px;
-    font-size: 0.9rem;
-    color: #7b809a;
+    margin-top: 3px;
+    font-size: 0.85rem;
+    color: var(--text);
   }
 
   .top-actions {
     display: flex;
     gap: 20px;
     align-items: center;
+    flex-shrink: 0;
   }
 
   .top-actions div {
     text-align: center;
     font-size: 0.7rem;
     cursor: pointer;
-    color: #344767;
+    color: var(--dark);
+  }
+
+  @media (max-width: 600px) {
+    .app-shell { padding: 14px; }
+    .page-title { font-size: 1.6rem; }
+    .pantry-card { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .qty-controls { align-self: flex-end; }
   }
 
   /* helper card */
@@ -72,13 +105,13 @@
   }
 
   .helper-text {
-    color: #67748e;
+    color: var(--text);
     font-size: 0.9rem;
   }
 
   .helper-link {
     background: #eef2f7;
-    color: #344767;
+    color: var(--dark);
     text-decoration: none;
     border-radius: 12px;
     padding: 10px 14px;
@@ -122,7 +155,7 @@
     content: "";
     width: 10px;
     height: 10px;
-    background: #e74c3c;
+    background: var(--primary);
     border-radius: 50%;
     position: absolute;
     top: 6px;
@@ -148,7 +181,7 @@
   .filter-option {
     padding: 12px 16px;
     cursor: pointer;
-    color: #344767;
+    color: var(--dark);
     font-size: 0.95rem;
   }
 
@@ -159,7 +192,7 @@
   .filter-option.selected {
     background: #eef2f7;
     font-weight: 600;
-    color: #e74c3c;
+    color: var(--primary);
   }
 
   /* =========================
@@ -178,7 +211,7 @@
 
   .item-name {
     font-weight: 600;
-    color: #344767;
+    color: var(--dark);
     font-size: 1.1rem;
   }
 
@@ -193,7 +226,7 @@
     padding: 4px 8px;
     border-radius: 12px;
     background: #fce4e1;
-    color: #e74c3c;
+    color: var(--primary);
     font-size: 0.7rem;
     font-weight: 600;
   }
@@ -228,7 +261,7 @@
     background: white;
     border-radius: 16px;
     padding: 18px;
-    color: #67748e;
+    color: var(--text);
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     text-align: center;
   }
@@ -255,7 +288,7 @@
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    color: #7b809a;
+    color: var(--text);
     font-size: 0.55rem;
     flex: 1;
   }
@@ -265,7 +298,7 @@
   }
 
   .bottom-nav a.active {
-    color: #e74c3c;
+    color: var(--primary);
   }
 
   /* =========================
@@ -284,24 +317,57 @@
   .modal-box {
     background: white;
     width: 520px;
-    max-width: 92%;
+    max-width: 94%;
+    max-height: 88vh;
     border-radius: 18px;
-    padding: 28px 26px 24px;
+    padding: 0;
     box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
+    padding: 22px 24px 0;
+    flex-shrink: 0;
   }
+
+  .modal-search {
+    margin: 14px 24px 0;
+    flex-shrink: 0;
+  }
+
+  #popupIngredientList {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 24px 8px;
+    min-height: 0;
+  }
+
+  .popup-actions {
+    padding: 16px 24px 20px;
+    border-top: 1px solid #f0f2f5;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .modal {
+      align-items: flex-end;
+    }
+    .modal-box {
+      max-width: 100%;
+      width: 100%;
+      max-height: 82vh;
+      border-radius: 20px 20px 0 0;
+    }
+  }
+
 
   .modal-title {
     margin: 0;
     font-size: 2rem;
     font-weight: 700;
-    color: #344767;
+    color: var(--dark);
   }
 
   .close-x {
@@ -309,7 +375,7 @@
     background: transparent;
     font-size: 2rem;
     cursor: pointer;
-    color: #344767;
+    color: var(--dark);
     line-height: 1;
   }
 
@@ -330,7 +396,7 @@
     align-items: center;
     gap: 8px;
     margin-bottom: 16px;
-    color: #344767;
+    color: var(--dark);
     font-size: 1.05rem;
   }
 
@@ -342,7 +408,7 @@
     background: #eef2f7;
     cursor: pointer;
     font-weight: 700;
-    color: #344767;
+    color: var(--dark);
   }
 
   .ingredient-count {
@@ -350,17 +416,11 @@
     font-weight: 600;
   }
 
-  .popup-actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 28px;
-  }
 
   .popup-btn {
     border: none;
     background: #eef2f7;
-    color: #344767;
+    color: var(--dark);
     border-radius: 14px;
     padding: 12px 22px;
     font-weight: 600;
@@ -368,7 +428,7 @@
   }
 
   .popup-btn.primary {
-    background: #344767;
+    background: var(--dark);
     color: white;
   }
 
@@ -377,7 +437,7 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #344767;
+    background: var(--dark);
     color: white;
     padding: 12px 16px;
     border-radius: 12px;
@@ -387,6 +447,72 @@
     font-size: 0.9rem;
     font-weight: 600;
   }
+
+  /* ── Popup ingredient list ── */
+  .popup-category-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text);
+    margin: 14px 0 6px;
+  }
+
+  .ingredient-row {
+    display: grid;
+    grid-template-columns: 30px 28px 30px 1fr 64px;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .ingredient-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: #eef2f7;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ingredient-count {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--dark);
+  }
+
+  .ingredient-name {
+    font-size: 0.92rem;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .unit-input {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background: #eef2f7;
+    padding: 4px 6px;
+    font-size: 0.78rem;
+    color: var(--text);
+    width: 100%;
+    outline: none;
+    text-align: center;
+  }
+
+  .unit-input:focus {
+    border-color: var(--primary);
+    color: var(--dark);
+  }
+
 </style>
 </head>
 
@@ -394,26 +520,24 @@
 
 <div class="toast" id="toastMessage"></div>
 
-<div class="app-shell">
-
-  <div style="display:flex; justify-content:space-between; align-items:center;">
-    <div>
-      <div class="page-title">My Pantry</div>
-      <div class="page-subtitle">Track ingredients you already have at home</div>
+<div class="app-header">
+  <div>
+    <h1 class="page-title">My Pantry</h1>
+    <div class="page-subtitle">Track ingredients you already have at home</div>
+  </div>
+  <div class="top-actions">
+    <div onclick="openModal()">
+      <span class="material-icons-round">add_circle</span><br>
+      Manual
     </div>
-
-    <div class="top-actions">
-      <div onclick="openModal()">
-        <span class="material-icons-round">add_circle</span><br>
-        Manual
-      </div>
-
-      <div onclick="qrScan()">
-        <span class="material-icons-round">qr_code_scanner</span><br>
-        QR
-      </div>
+    <div onclick="qrScan()">
+      <span class="material-icons-round">qr_code_scanner</span><br>
+      QR
     </div>
   </div>
+</div>
+
+<div class="app-shell">
 
   <div class="helper-card">
     <div class="helper-text">Need to shop for missing ingredients?</div>
@@ -433,10 +557,15 @@
     </div>
 
     <div class="filter-menu" id="filterMenu">
-      <div class="filter-option" id="filter-all" onclick="setFilter('all')">All Items</div>
-      <div class="filter-option" id="filter-low" onclick="setFilter('low')">Low Stock</div>
-      <div class="filter-option" id="filter-high" onclick="setFilter('high')">High Quantity</div>
-      <div class="filter-option" id="filter-az" onclick="setFilter('az')">A–Z</div>
+      <div class="filter-option" id="filter-all"      onclick="setFilter('all')">All Items</div>
+      <div class="filter-option" id="filter-low"      onclick="setFilter('low')">Low Stock</div>
+      <div class="filter-option" id="filter-high"     onclick="setFilter('high')">High Quantity</div>
+      <div class="filter-option" id="filter-az"       onclick="setFilter('az')">A–Z</div>
+      <div class="filter-option" id="filter-Produce"  onclick="setFilter('Produce')">Produce</div>
+      <div class="filter-option" id="filter-Proteins" onclick="setFilter('Proteins')">Proteins</div>
+      <div class="filter-option" id="filter-Grains"   onclick="setFilter('Grains')">Grains</div>
+      <div class="filter-option" id="filter-Dairy"    onclick="setFilter('Dairy')">Dairy</div>
+      <div class="filter-option" id="filter-Staples"  onclick="setFilter('Staples')">Staples</div>
     </div>
   </div>
 
@@ -507,24 +636,81 @@
 
 <script>
   const defaultItems = [
-    {name:"Chicken breast", sub:"1 lb", qty:2},
-    {name:"Rice", sub:"5 cups", qty:4},
-    {name:"Soy sauce", sub:"Bottle", qty:1},
-    {name:"Ground Beef", sub:"2 lb", qty:1},
-    {name:"Garlic", sub:"3 cloves", qty:3},
-    {name:"Onions", sub:"2", qty:2}
+    {name:"Chicken Breast", category:"Proteins", sub:"lb",     qty:2},
+    {name:"Jasmine Rice",   category:"Grains",   sub:"cups",   qty:4},
+    {name:"Soy Sauce",      category:"Staples",  sub:"bottle", qty:1},
+    {name:"Ground Beef",    category:"Proteins", sub:"lb",     qty:1},
+    {name:"Garlic",         category:"Produce",  sub:"bulb",   qty:3},
+    {name:"Onions",         category:"Produce",  sub:"lb",     qty:2}
   ];
 
   let items = JSON.parse(localStorage.getItem("pantryItems")) || defaultItems;
   let currentFilter = "all";
 
-  let popupIngredients = [
-    {name:"Jasmine Rice", sub:"Cups", qty:0},
-    {name:"Basmati Rice", sub:"Cups", qty:1},
-    {name:"Brown Rice", sub:"Cups", qty:0},
-    {name:"Green Onion", sub:"Bunch", qty:0},
-    {name:"Olive Oil", sub:"Bottle", qty:0}
+  // ── Normalize legacy / mis-spelled categories on load ──────
+  const CATEGORY_MAP = {
+    "veg": "Produce", "vegetable": "Produce", "vegetables": "Produce",
+    "produce": "Produce", "fruit": "Produce", "fruits": "Produce",
+    "protein": "Proteins", "proteins": "Proteins", "meat": "Proteins",
+    "grain": "Grains", "grains": "Grains", "bread": "Grains",
+    "dairy": "Dairy",
+    "staple": "Staples", "staples": "Staples", "pantry": "Staples",
+  };
+  let normalizedAny = false;
+  items.forEach(item => {
+    const key = (item.category || "").toLowerCase().trim();
+    if (CATEGORY_MAP[key] && item.category !== CATEGORY_MAP[key]) {
+      item.category = CATEGORY_MAP[key];
+      normalizedAny = true;
+    } else if (!item.category) {
+      item.category = "Staples"; // safe fallback
+      normalizedAny = true;
+    }
+  });
+  if (normalizedAny) localStorage.setItem("pantryItems", JSON.stringify(items));
+
+  // ── Shared ingredient catalog ──────────────────────────────
+  const INGREDIENT_CATALOG = [
+    // Produce
+    {name:"Avocado",          category:"Produce",  unit:"each",   price:1.50},
+    {name:"Bell Pepper",      category:"Produce",  unit:"each",   price:1.29},
+    {name:"Broccoli",         category:"Produce",  unit:"head",   price:1.99},
+    {name:"Garlic",           category:"Produce",  unit:"bulb",   price:0.50},
+    {name:"Green Onion",      category:"Produce",  unit:"bunch",  price:0.99},
+    {name:"Lemon",            category:"Produce",  unit:"each",   price:0.79},
+    {name:"Mushrooms",        category:"Produce",  unit:"lb",     price:2.99},
+    {name:"Onions",           category:"Produce",  unit:"lb",     price:1.20},
+    {name:"Spinach",          category:"Produce",  unit:"bag",    price:3.49},
+    {name:"Tomatoes",         category:"Produce",  unit:"lb",     price:1.50},
+    // Proteins
+    {name:"Chicken Breast",   category:"Proteins", unit:"lb",     price:4.99},
+    {name:"Eggs",             category:"Proteins", unit:"dozen",  price:3.99},
+    {name:"Ground Beef",      category:"Proteins", unit:"lb",     price:5.00},
+    {name:"Salmon",           category:"Proteins", unit:"lb",     price:8.99},
+    {name:"Tuna",             category:"Proteins", unit:"can",    price:1.50},
+    // Grains
+    {name:"Basmati Rice",     category:"Grains",   unit:"cups",   price:1.20},
+    {name:"Bread",            category:"Grains",   unit:"loaf",   price:2.99},
+    {name:"Brown Rice",       category:"Grains",   unit:"cups",   price:0.90},
+    {name:"Jasmine Rice",     category:"Grains",   unit:"cups",   price:1.00},
+    {name:"Pasta",            category:"Grains",   unit:"box",    price:1.29},
+    // Dairy
+    {name:"Butter",           category:"Dairy",    unit:"stick",  price:1.50},
+    {name:"Cheddar Cheese",   category:"Dairy",    unit:"block",  price:4.99},
+    {name:"Greek Yogurt",     category:"Dairy",    unit:"cup",    price:1.49},
+    {name:"Milk",             category:"Dairy",    unit:"gallon", price:3.49},
+    // Staples
+    {name:"Black Pepper",     category:"Staples",  unit:"jar",    price:2.49},
+    {name:"Garlic Powder",    category:"Staples",  unit:"jar",    price:1.99},
+    {name:"Olive Oil",        category:"Staples",  unit:"bottle", price:5.99},
+    {name:"Salt",             category:"Staples",  unit:"box",    price:0.99},
+    {name:"Soy Sauce",        category:"Staples",  unit:"bottle", price:2.99},
+    {name:"Tomato Sauce",     category:"Staples",  unit:"can",    price:1.49},
   ];
+
+  // Working copy for popup qty & editable units (reset each open)
+  let popupSelections = [];
+
 
   function savePantry() {
     localStorage.setItem("pantryItems", JSON.stringify(items));
@@ -570,65 +756,74 @@
     updateFilterMenuUI();
     render();
 
-    if (filterType === "all") showToast("Showing all pantry items");
-    if (filterType === "low") showToast("Filter applied: Low Stock");
-    if (filterType === "high") showToast("Filter applied: High Quantity");
-    if (filterType === "az") showToast("Filter applied: A–Z");
+    const labels = {
+      all:"Showing all pantry items", low:"Filter: Low Stock",
+      high:"Filter: High Quantity",   az:"Filter: A–Z",
+      Produce:"Filter: Produce", Proteins:"Filter: Proteins",
+      Grains:"Filter: Grains",   Dairy:"Filter: Dairy", Staples:"Filter: Staples"
+    };
+    showToast(labels[filterType] || "Filter applied");
   }
 
   function render() {
     const pantryList = document.getElementById("pantryList");
     const searchText = document.getElementById("pantrySearch").value.toLowerCase().trim();
+    const CATS = ["Produce","Proteins","Grains","Dairy","Staples"];
+    const catFilters = new Set(CATS);
 
-    let filteredItems = items.filter(item =>
+    let filtered = items.filter(item =>
       item.name.toLowerCase().includes(searchText)
     );
 
-    if (currentFilter === "low") {
-      filteredItems = filteredItems.filter(item => item.qty <= 1);
+    if (currentFilter === "low")  filtered = filtered.filter(i => i.qty <= 1);
+    if (currentFilter === "high") filtered = filtered.filter(i => i.qty >= 3);
+    if (catFilters.has(currentFilter)) filtered = filtered.filter(i => i.category === currentFilter);
+    if (currentFilter === "az")   filtered = [...filtered].sort((a,b) => a.name.localeCompare(b.name));
+
+    if (filtered.length === 0) {
+      pantryList.innerHTML = `<div class="empty-message">No ingredients found. Try another search or filter.</div>`;
+      return;
     }
 
-    if (currentFilter === "high") {
-      filteredItems = filteredItems.filter(item => item.qty >= 3);
-    }
-
-    if (currentFilter === "az") {
-      filteredItems = [...filteredItems].sort((a, b) => a.name.localeCompare(b.name));
-    }
-
+    // Group by category (preserve order; flat A-Z skips grouping)
     let html = "";
-
-    if (filteredItems.length === 0) {
-      html = `
-        <div class="empty-message">
-          No ingredients found. Try another search or filter.
-        </div>
-      `;
+    if (currentFilter === "az") {
+      filtered.forEach(item => {
+        const ri = items.findIndex(r => r.name === item.name && r.sub === item.sub);
+        html += pantryCardHTML(item, ri);
+      });
     } else {
-      filteredItems.forEach((item) => {
-        const realIndex = items.findIndex(realItem =>
-          realItem.name === item.name && realItem.sub === item.sub
-        );
-
-        html += `
-          <div class="pantry-card">
-            <div>
-              <div class="item-name">${item.name}</div>
-              <div class="item-sub">${item.sub}</div>
-              ${item.qty <= 1 ? '<div class="low-stock">Low stock</div>' : ''}
-            </div>
-
-            <div class="qty-controls">
-              <div class="qty-btn" onclick="decrease(${realIndex})">-</div>
-              <div class="qty-number">${item.qty}</div>
-              <div class="qty-btn" onclick="increase(${realIndex})">+</div>
-            </div>
-          </div>
-        `;
+      const groups = currentFilter !== "all" && catFilters.has(currentFilter)
+        ? [currentFilter]
+        : [...new Set(filtered.map(i => i.category || "Other"))];
+      groups.forEach(cat => {
+        const inCat = filtered.filter(i => (i.category || "Other") === cat);
+        if (inCat.length === 0) return;
+        html += `<div class="section-title">${cat}</div>`;
+        inCat.forEach(item => {
+          const ri = items.findIndex(r => r.name === item.name && r.sub === item.sub);
+          html += pantryCardHTML(item, ri);
+        });
       });
     }
 
     pantryList.innerHTML = html;
+  }
+
+  function pantryCardHTML(item, ri) {
+    return `
+      <div class="pantry-card">
+        <div>
+          <div class="item-name">${item.name}</div>
+          <div class="item-sub">${item.sub}</div>
+          ${item.qty <= 1 ? '<div class="low-stock">Low stock</div>' : ''}
+        </div>
+        <div class="qty-controls">
+          <div class="qty-btn" onclick="decrease(${ri})">-</div>
+          <div class="qty-number">${item.qty}</div>
+          <div class="qty-btn" onclick="increase(${ri})">+</div>
+        </div>
+      </div>`;
   }
 
   function increase(i) {
@@ -639,93 +834,93 @@
   }
 
   function decrease(i) {
-    if (items[i].qty > 0) {
+    if (items[i].qty > 1) {
       items[i].qty--;
+      savePantry();
+      render();
+      showToast("Pantry updated");
+    } else if (items[i].qty === 1) {
+      const name = items[i].name;
+      items.splice(i, 1);
+      savePantry();
+      render();
+      showToast(`${name} removed from pantry`);
     }
-    savePantry();
-    render();
-    showToast("Pantry updated");
   }
 
+
+  // ── Popup open/close ───────────────────────────────────────
   function openModal() {
-    document.getElementById("modal").style.display = "flex";
+    // Reset selections from catalog
+    popupSelections = INGREDIENT_CATALOG.map(item => ({
+      ...item, qty: 0
+    }));
     renderPopupList();
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("popupSearch").value = "";
   }
 
   function closeModal() {
     document.getElementById("modal").style.display = "none";
   }
 
+  // ── Render searchable ingredient list ─────────────────────
   function renderPopupList() {
-    const popupList = document.getElementById("popupIngredientList");
-    const popupSearchText = document.getElementById("popupSearch").value.toLowerCase().trim();
+    const list  = document.getElementById("popupIngredientList");
+    const query = document.getElementById("popupSearch").value.toLowerCase().trim();
 
-    const filteredPopupItems = popupIngredients.filter(item =>
-      item.name.toLowerCase().includes(popupSearchText)
+    const filtered = popupSelections.filter(item =>
+      item.name.toLowerCase().includes(query) ||
+      item.category.toLowerCase().includes(query)
     );
 
-    let html = "";
-
-    filteredPopupItems.forEach((item) => {
-      const realIndex = popupIngredients.findIndex(realItem =>
-        realItem.name === item.name && realItem.sub === item.sub
-      );
-
-      html += `
-        <div class="ingredient-row">
-          <button class="ingredient-btn" onclick="changePopupQty(${realIndex}, 1)">+</button>
-          <div class="ingredient-count" id="popupQty${realIndex}">${item.qty}</div>
-          <button class="ingredient-btn" onclick="changePopupQty(${realIndex}, -1)">-</button>
-          <div>${item.name} (${item.sub})</div>
-        </div>
-      `;
-    });
-
-    popupList.innerHTML = html;
-  }
-
-  function changePopupQty(index, amount) {
-    popupIngredients[index].qty += amount;
-
-    if (popupIngredients[index].qty < 0) {
-      popupIngredients[index].qty = 0;
+    if (filtered.length === 0) {
+      list.innerHTML = '<div style="color:var(--text);font-size:0.85rem;padding:10px 0;">No ingredients found.</div>';
+      return;
     }
 
+    // Group by category
+    const cats = [...new Set(filtered.map(i => i.category))];
+    let html = "";
+    cats.forEach(cat => {
+      html += `<div class="popup-category-label">${cat}</div>`;
+      filtered.filter(i => i.category === cat).forEach(item => {
+        const idx = popupSelections.indexOf(item);
+        html += `
+          <div class="ingredient-row">
+            <button class="ingredient-btn" onclick="changePopupQty(${idx},1)">+</button>
+            <div class="ingredient-count">${item.qty}</div>
+            <button class="ingredient-btn" onclick="changePopupQty(${idx},-1)">-</button>
+            <div class="ingredient-name">${item.name}</div>
+            <input class="unit-input" value="${item.unit}" onchange="popupSelections[${idx}].unit=this.value" title="Edit unit">
+          </div>`;
+      });
+    });
+    list.innerHTML = html;
+  }
+
+  function changePopupQty(idx, amount) {
+    popupSelections[idx].qty = Math.max(0, popupSelections[idx].qty + amount);
     renderPopupList();
   }
 
+  // ── Add selected to pantry ────────────────────────────────
   function addSelectedIngredients() {
     let addedAny = false;
-
-    popupIngredients.forEach(popupItem => {
-      if (popupItem.qty > 0) {
-        const existingIndex = items.findIndex(item => item.name === popupItem.name);
-
-        if (existingIndex !== -1) {
-          items[existingIndex].qty += popupItem.qty;
-        } else {
-          items.push({
-            name: popupItem.name,
-            sub: popupItem.sub,
-            qty: popupItem.qty
-          });
-        }
-
-        popupItem.qty = 0;
-        addedAny = true;
+    popupSelections.forEach(sel => {
+      if (sel.qty <= 0) return;
+      const ei = items.findIndex(i => i.name === sel.name);
+      if (ei !== -1) {
+        items[ei].qty += sel.qty;
+      } else {
+        items.push({ name:sel.name, category:sel.category, sub:sel.unit, qty:sel.qty });
       }
+      addedAny = true;
     });
-
     savePantry();
     render();
-    renderPopupList();
     closeModal();
-
-    if (addedAny) {
-      showToast("Ingredients added to pantry");
-    } else {
-      showToast("No ingredients selected");
-    }
+    showToast(addedAny ? "Ingredients added to pantry" : "No ingredients selected");
   }
 
   function qrScan() {
