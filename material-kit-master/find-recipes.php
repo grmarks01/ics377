@@ -147,7 +147,7 @@
     .badge-ready {
       display: inline-block; background: #e8f5e9; color: #2e7d32;
       font-size: 0.62rem; font-weight: 700; border-radius: 20px;
-      padding: 2px 7px; margin-bottom: 4px;
+      padding: 2px 7px; margin-top: 4px;
     }
 
     /* ── Bottom nav ── */
@@ -279,9 +279,9 @@
             <button type="button" class="action-btn save-btn" onclick="handleSave(this)" aria-label="Save recipe"><span class="material-icons-round">bookmark_border</span></button>
           </div>
           <div class="recipe-info">
-            <span class="badge-ready">✓ All ingredients</span>
             <p class="recipe-name">Chicken Rice</p>
             <p class="recipe-meta"><span class="material-icons-round">schedule</span> 30 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 480 cal</p>
+            <span class="badge-ready">✓ All ingredients</span>
           </div>
         </div>
 
@@ -293,9 +293,9 @@
             <button type="button" class="action-btn save-btn" onclick="handleSave(this)" aria-label="Save recipe"><span class="material-icons-round">bookmark_border</span></button>
           </div>
           <div class="recipe-info">
-            <span class="badge-ready">✓ All ingredients</span>
             <p class="recipe-name">Egg Fried Rice</p>
             <p class="recipe-meta"><span class="material-icons-round">schedule</span> 15 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 380 cal</p>
+            <span class="badge-ready">✓ All ingredients</span>
           </div>
         </div>
 
@@ -474,7 +474,7 @@
           </div>
           <div class="recipe-info">
             <p class="recipe-name">Lentil Stew</p>
-            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 40 min &nbsp;·&nbsp; $1.80/srv</p>
+            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 40 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 290 cal</p>
           </div>
         </div>
 
@@ -487,7 +487,7 @@
           </div>
           <div class="recipe-info">
             <p class="recipe-name">Bean Tacos</p>
-            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 20 min &nbsp;·&nbsp; $1.50/srv</p>
+            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 20 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 340 cal</p>
           </div>
         </div>
 
@@ -500,7 +500,7 @@
           </div>
           <div class="recipe-info">
             <p class="recipe-name">Rice &amp; Beans</p>
-            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 30 min &nbsp;·&nbsp; $1.20/srv</p>
+            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 30 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 320 cal</p>
           </div>
         </div>
 
@@ -513,7 +513,7 @@
           </div>
           <div class="recipe-info">
             <p class="recipe-name">Veggie Soup</p>
-            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 35 min &nbsp;·&nbsp; $1.60/srv</p>
+            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 35 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 180 cal</p>
           </div>
         </div>
 
@@ -527,7 +527,7 @@
           </div>
           <div class="recipe-info">
             <p class="recipe-name">Tomato Soup</p>
-            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 25 min &nbsp;·&nbsp; $1.60/srv</p>
+            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 25 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 210 cal</p>
           </div>
         </div>
         <div class="recipe-card" data-name="Peanut Noodles">
@@ -539,7 +539,7 @@
           </div>
           <div class="recipe-info">
             <p class="recipe-name">Peanut Noodles</p>
-            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 15 min &nbsp;·&nbsp; $1.90/srv</p>
+            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 15 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 380 cal</p>
           </div>
         </div>
 
@@ -766,7 +766,7 @@
             const badge = document.createElement('span');
             badge.className = 'badge-ready';
             badge.textContent = '✓ All ingredients';
-            info.insertBefore(badge, info.firstChild);
+            info.appendChild(badge);
           } else if (!allReady && existing) {
             existing.remove();
           }

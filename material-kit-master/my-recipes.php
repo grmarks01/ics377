@@ -155,12 +155,12 @@
     .badge-ready {
       display: inline-block; background: #e8f5e9; color: #2e7d32;
       font-size: 0.62rem; font-weight: 700; border-radius: 20px;
-      padding: 2px 7px; margin-bottom: 4px;
+      padding: 2px 7px; margin-top: 4px;
     }
     .badge-new {
       display: inline-block; background: #e3f2fd; color: #1565c0;
       font-size: 0.62rem; font-weight: 700; border-radius: 20px;
-      padding: 2px 7px; margin-bottom: 4px;
+      padding: 2px 7px; margin-top: 4px;
     }
 
     /* ── Bottom nav ── */
@@ -338,7 +338,7 @@
             <div class="action-divider"></div>
             <button type="button" class="action-btn heart-btn" onclick="toggleFavorite(this)" aria-label="Favorite"><span class="material-icons-round">favorite</span></button>
           </div>
-          <div class="recipe-info"><p class="recipe-name">Chicken Rice</p><p class="recipe-meta"><span class="material-icons-round">history</span> Today</p></div>
+          <div class="recipe-info"><p class="recipe-name">Chicken Rice</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 30 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 480 cal</p></div>
         </div>
 
         <div class="recipe-card" data-name="Caesar Salad">
@@ -350,7 +350,7 @@
             <div class="action-divider"></div>
             <button type="button" class="action-btn heart-btn" onclick="toggleFavorite(this)" aria-label="Favorite"><span class="material-icons-round">favorite</span></button>
           </div>
-          <div class="recipe-info"><p class="recipe-name">Caesar Salad</p><p class="recipe-meta"><span class="material-icons-round">history</span> Yesterday</p></div>
+          <div class="recipe-info"><p class="recipe-name">Caesar Salad</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 15 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 320 cal</p></div>
         </div>
 
         <div class="recipe-card" data-name="Bean Tacos">
@@ -362,7 +362,7 @@
             <div class="action-divider"></div>
             <button type="button" class="action-btn heart-btn" onclick="toggleFavorite(this)" aria-label="Favorite"><span class="material-icons-round">favorite</span></button>
           </div>
-          <div class="recipe-info"><p class="recipe-name">Bean Tacos</p><p class="recipe-meta"><span class="material-icons-round">history</span> 2 days ago</p></div>
+          <div class="recipe-info"><p class="recipe-name">Bean Tacos</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 20 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 340 cal</p></div>
         </div>
 
         <div class="recipe-card" data-name="Mushroom Pasta">
@@ -374,7 +374,7 @@
             <div class="action-divider"></div>
             <button type="button" class="action-btn heart-btn" onclick="toggleFavorite(this)" aria-label="Favorite"><span class="material-icons-round">favorite</span></button>
           </div>
-          <div class="recipe-info"><p class="recipe-name">Mushroom Pasta</p><p class="recipe-meta"><span class="material-icons-round">history</span> 4 days ago</p></div>
+          <div class="recipe-info"><p class="recipe-name">Mushroom Pasta</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 25 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 510 cal</p></div>
         </div>
 
         <div class="recipe-card" data-name="Greek Salad">
@@ -386,7 +386,7 @@
             <div class="action-divider"></div>
             <button type="button" class="action-btn heart-btn" onclick="toggleFavorite(this)" aria-label="Favorite"><span class="material-icons-round">favorite</span></button>
           </div>
-          <div class="recipe-info"><p class="recipe-name">Greek Salad</p><p class="recipe-meta"><span class="material-icons-round">history</span> 1 week ago</p></div>
+          <div class="recipe-info"><p class="recipe-name">Greek Salad</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 10 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 220 cal</p></div>
         </div>
 
       </div></div>
@@ -413,7 +413,7 @@
             <div class="action-divider"></div>
             <button type="button" class="action-btn heart-btn" onclick="toggleFavorite(this)" aria-label="Favorite"><span class="material-icons-round">favorite</span></button>
           </div>
-          <div class="recipe-info"><span class="badge-ready">✓ All ingredients</span><p class="recipe-name">Egg Fried Rice</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 15 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 380 cal</p></div>
+          <div class="recipe-info"><p class="recipe-name">Egg Fried Rice</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 15 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 380 cal</p><span class="badge-ready">✓ All ingredients</span></div>
         </div>
 
       </div></div>
@@ -515,7 +515,7 @@
             <div class="action-divider"></div>
             <button type="button" class="action-btn heart-btn" onclick="toggleFavorite(this)" aria-label="Favorite"><span class="material-icons-round">favorite</span></button>
           </div>
-          <div class="recipe-info"><p class="recipe-name">Avocado Toast</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 8 min &nbsp;·&nbsp; $1.40/srv</p></div>
+          <div class="recipe-info"><p class="recipe-name">Avocado Toast</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 8 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 290 cal</p></div>
         </div>
 
 
@@ -539,7 +539,7 @@
             <div class="action-divider"></div>
             <button type="button" class="action-btn heart-btn" onclick="toggleFavorite(this)" aria-label="Favorite"><span class="material-icons-round">favorite</span></button>
           </div>
-          <div class="recipe-info"><p class="recipe-name">Bean Tacos</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 20 min &nbsp;·&nbsp; $1.50/srv</p></div>
+          <div class="recipe-info"><p class="recipe-name">Bean Tacos</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 20 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 340 cal</p></div>
         </div>
 
         <div class="recipe-card" data-name="Egg Fried Rice">
@@ -551,7 +551,7 @@
             <div class="action-divider"></div>
             <button type="button" class="action-btn heart-btn" onclick="toggleFavorite(this)" aria-label="Favorite"><span class="material-icons-round">favorite</span></button>
           </div>
-          <div class="recipe-info"><p class="recipe-name">Egg Fried Rice</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 15 min &nbsp;·&nbsp; $1.30/srv</p></div>
+          <div class="recipe-info"><p class="recipe-name">Egg Fried Rice</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 15 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 380 cal</p></div>
         </div>
 
         <div class="recipe-card" data-name="Lentil Stew">
@@ -563,7 +563,7 @@
             <div class="action-divider"></div>
             <button type="button" class="action-btn heart-btn" onclick="toggleFavorite(this)" aria-label="Favorite"><span class="material-icons-round">favorite</span></button>
           </div>
-          <div class="recipe-info"><p class="recipe-name">Lentil Stew</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 40 min &nbsp;·&nbsp; $1.80/srv</p></div>
+          <div class="recipe-info"><p class="recipe-name">Lentil Stew</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 40 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 290 cal</p></div>
         </div>
 
         <div class="recipe-card" data-name="Veggie Stir Fry">
@@ -575,7 +575,7 @@
             <div class="action-divider"></div>
             <button type="button" class="action-btn heart-btn" onclick="toggleFavorite(this)" aria-label="Favorite"><span class="material-icons-round">favorite</span></button>
           </div>
-          <div class="recipe-info"><p class="recipe-name">Veggie Stir Fry</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 20 min &nbsp;·&nbsp; $1.60/srv</p></div>
+          <div class="recipe-info"><p class="recipe-name">Veggie Stir Fry</p><p class="recipe-meta"><span class="material-icons-round">schedule</span> 20 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 310 cal</p></div>
         </div>
 
       </div></div>
@@ -704,9 +704,9 @@
             <button type="button" class="action-btn heart-btn" onclick="toggleFavorite(this)" aria-label="Favorite"><span class="material-icons-round">favorite</span></button>
           </div>
           <div class="recipe-info">
-            ${isNew ? '<span class="badge-new">New</span>' : ''}
             <p class="recipe-name">${item.name}</p>
             <p class="recipe-meta"><span class="material-icons-round">schedule</span> ${d.time} min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> ${d.cal} cal</p>
+            ${isNew ? '<span class="badge-new">New</span>' : ''}
           </div>`;
         row.appendChild(card);
         // Restore heart state
@@ -895,7 +895,7 @@
             const badge = document.createElement('span');
             badge.className = 'badge-ready';
             badge.textContent = '✓ All ingredients';
-            info.insertBefore(badge, info.firstChild);
+            info.appendChild(badge);
           } else if (!allReady && existing) {
             existing.remove();
           }
