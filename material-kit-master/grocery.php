@@ -35,7 +35,7 @@
   .app-header {
     background: #fff;
     border-bottom: 1px solid #e9ecef;
-    padding: 22px 16px 18px;
+    padding: 18px 20px 14px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -45,7 +45,7 @@
   }
 
   .page-title {
-    font-size: 2.1rem;
+    font-size: 2rem;
     font-weight: 800;
     color: #2e7d32;
     margin: 0;
@@ -446,7 +446,7 @@
       padding: 14px;
     }
     .grocery-card {
-      grid-template-columns: 36px 1fr 36px;
+      grid-template-columns: 36px 1fr 100px;
       grid-template-rows: auto auto;
     }
     .grocery-card .item-price {
@@ -455,15 +455,20 @@
     .grocery-card .qty-controls {
       grid-column: 3;
       grid-row: 1 / 3;
-      flex-direction: column;
+      align-self: center;
       gap: 4px;
+    }
+    .grocery-card .qty-btn {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
     }
     .grocery-card .delete-btn {
       grid-column: 1;
       grid-row: 2;
     }
     .page-title {
-      font-size: 1.7rem;
+      font-size: 1.6rem;
     }
   }
 
@@ -853,10 +858,17 @@
   }
 
   function minus(i) {
-    if (items[i].qty > 0) items[i].qty--;
-    save();
-    render();
-    showToast("Grocery list updated");
+    if (items[i].qty > 1) {
+      items[i].qty--;
+      save();
+      render();
+      showToast("Grocery list updated");
+    } else {
+      items.splice(i, 1);
+      save();
+      render();
+      showToast("Item removed");
+    }
   }
 
   function removeItem(i) {
