@@ -29,7 +29,7 @@
       padding: 22px 16px 18px; position: sticky; top: 0; z-index: 100;
     }
     .app-header h1 {
-      margin: 0; font-size: 1.6rem; font-weight: 800;
+      margin: 0; font-size: 2rem; font-weight: 800;
       color: var(--primary); text-align: center; letter-spacing: -0.5px;
     }
 

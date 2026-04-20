@@ -35,7 +35,7 @@
   .app-header {
     background: #fff;
     border-bottom: 1px solid #e9ecef;
-    padding: 18px 20px 14px;
+    padding: 22px 16px 18px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -45,7 +45,7 @@
   }
 
   .page-title {
-    font-size: 2rem;
+    font-size: 2.1rem;
     font-weight: 800;
     color: #2e7d32;
     margin: 0;
@@ -463,7 +463,7 @@
       grid-row: 2;
     }
     .page-title {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
     }
   }
 

@@ -251,12 +251,13 @@ $recipeName = htmlspecialchars($recipe ?: 'Recipe');
     justify-content: space-around;
     padding: 6px 0;
     z-index: 100;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.06);
   }
 
   .bottom-nav a {
     flex: 1;
     text-align: center;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     color: var(--text);
     text-decoration: none;
     display: flex;
@@ -335,9 +336,9 @@ $recipeName = htmlspecialchars($recipe ?: 'Recipe');
   </div>
 
   <div class="action-row">
-    <button class="btn btn-primary" onclick="startCooking()">
-      <span class="material-icons-round">play_arrow</span>
-      Start Cooking
+    <button class="btn btn-primary" id="completeBtn" onclick="markCompleted()">
+      <span class="material-icons-round">check_circle</span>
+      Mark Completed
     </button>
     <button class="btn btn-secondary" id="addToPlanBtn">
       <span class="material-icons-round">add_circle_outline</span>
@@ -477,8 +478,47 @@ $recipeName = htmlspecialchars($recipe ?: 'Recipe');
     setTimeout(() => toast.classList.remove('show'), 2500);
   }
 
-  function startCooking() {
-    showToast('Starting cooking mode…');
+  function extractName(rawText) {
+    return rawText
+      .split(',')[0]
+      .trim()
+      .replace(/^[\d½¼¾⅓⅔⅛]+\s*/, '')
+      .replace(/^(cups?|tbsp|tsp|oz|lbs?|g|kg|ml|l|cans?|bunch|head|cloves?|slices?|large|medium|small|fresh|frozen|dried)\s+/i, '')
+      .trim();
+  }
+
+  function markCompleted() {
+    const ingredients = FALLBACK_INGREDIENTS[recipeName] || [];
+    let pantry = JSON.parse(localStorage.getItem('pantryItems') || '[]');
+    let removed = 0;
+
+    ingredients.forEach(text => {
+      const name = extractName(text);
+      if (!name) return;
+      const idx = pantry.findIndex(p =>
+        p.name.toLowerCase().includes(name.toLowerCase()) ||
+        name.toLowerCase().includes(p.name.toLowerCase().split(' ')[0])
+      );
+      if (idx !== -1) {
+        pantry[idx].qty = (pantry[idx].qty || 1) - 1;
+        if (pantry[idx].qty <= 0) {
+          pantry.splice(idx, 1);
+        }
+        removed++;
+      }
+    });
+
+    localStorage.setItem('pantryItems', JSON.stringify(pantry));
+
+    const btn = document.getElementById('completeBtn');
+    btn.innerHTML = '<span class="material-icons-round">check_circle</span> Completed!';
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+    btn.style.cursor = 'default';
+
+    showToast(removed > 0
+      ? removed + ' ingredient' + (removed !== 1 ? 's' : '') + ' removed from pantry'
+      : 'Recipe marked complete');
   }
 </script>
 

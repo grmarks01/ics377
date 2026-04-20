@@ -44,7 +44,7 @@
   .app-header {
     background: #fff;
     border-bottom: 1px solid #e9ecef;
-    padding: 18px 20px 14px;
+    padding: 22px 16px 18px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -58,7 +58,7 @@
      TOP HEADER AREA
      ========================= */
   .page-title {
-    font-size: 2rem;
+    font-size: 2.1rem;
     font-weight: 800;
     color: var(--primary);
     margin: 0;
@@ -86,7 +86,7 @@
 
   @media (max-width: 600px) {
     .app-shell { padding: 14px; }
-    .page-title { font-size: 1.6rem; }
+    .page-title { font-size: 1.7rem; }
     .pantry-card { flex-direction: column; align-items: flex-start; gap: 10px; }
     .qty-controls { align-self: flex-end; }
   }

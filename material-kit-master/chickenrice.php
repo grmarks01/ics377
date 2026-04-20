@@ -268,12 +268,13 @@
     justify-content: space-around;
     padding: 6px 0;
     z-index: 100;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.06);
   }
 
   .bottom-nav a {
     flex: 1;
     text-align: center;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     color: var(--text);
     text-decoration: none;
     display: flex;
@@ -364,9 +365,9 @@
 
   <!-- Actions -->
   <div class="action-row">
-    <button class="btn btn-primary" onclick="startCooking()">
-      <span class="material-icons-round">play_arrow</span>
-      Start Cooking
+    <button class="btn btn-primary" id="completeBtn" onclick="markCompleted()">
+      <span class="material-icons-round">check_circle</span>
+      Mark Completed
     </button>
     <button class="btn btn-secondary" onclick="addToPlan()">
       <span class="material-icons-round">add_circle_outline</span>
@@ -497,9 +498,61 @@
     setTimeout(() => toast.classList.remove('show'), 2000);
   }
 
-  function startCooking() {
-    showToast('Starting cooking mode...');
-    // In real app, would navigate to cooking mode
+  // Ingredients for pantry deduction
+  const INGREDIENTS = [
+    { key: 'rice' },
+    { key: 'chicken' },
+    { key: 'garlic' },
+    { key: 'soy sauce' },
+    { key: 'sesame oil' },
+    { key: 'onion' },
+    { key: 'salt' },
+  ];
+
+  function markCompleted() {
+    // ── 1. Deduct ingredients from pantry ──
+    let pantry = JSON.parse(localStorage.getItem('pantryItems') || '[]');
+    let removed = 0;
+
+    INGREDIENTS.forEach(ing => {
+      const idx = pantry.findIndex(p =>
+        p.name.toLowerCase().includes(ing.key.toLowerCase()) ||
+        ing.key.toLowerCase().includes(p.name.toLowerCase().split(' ')[0])
+      );
+      if (idx !== -1) {
+        pantry[idx].qty = (pantry[idx].qty || 1) - 1;
+        if (pantry[idx].qty <= 0) {
+          pantry.splice(idx, 1);
+        }
+        removed++;
+      }
+    });
+
+    localStorage.setItem('pantryItems', JSON.stringify(pantry));
+
+    // ── 2. Remove Chicken Rice from My Plan (updates dashboard too) ──
+    const PLAN_KEY = 'myPlanItems_v2';
+    let plan = JSON.parse(localStorage.getItem(PLAN_KEY) || '[]');
+    plan.forEach(item => {
+      if (item.meal === 'Chicken Rice') {
+        item.meal     = '';
+        item.time     = '';
+        item.calories = '';
+        item.cost     = '';
+      }
+    });
+    localStorage.setItem(PLAN_KEY, JSON.stringify(plan));
+
+    // ── 3. Update button ──
+    const btn = document.getElementById('completeBtn');
+    btn.innerHTML = '<span class="material-icons-round">check_circle</span> Completed!';
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+    btn.style.cursor = 'default';
+
+    showToast(removed > 0
+      ? removed + ' ingredient' + (removed !== 1 ? 's' : '') + ' removed from pantry'
+      : 'Recipe marked complete');
   }
 
   function addToPlan() {

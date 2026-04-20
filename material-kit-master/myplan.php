@@ -40,7 +40,7 @@
   }
 
   .page-title {
-    font-size: 2rem;
+    font-size: 2.1rem;
     font-weight: 800;
     color: var(--primary);
     margin: 0;
