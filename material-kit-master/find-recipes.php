@@ -272,11 +272,11 @@
       <div class="card-row-wrapper"><div class="card-row" id="row-ready">
 
         <div class="recipe-card" data-name="Chicken Rice">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Chicken%20Rice" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
-            <button type="button" class="action-btn save-btn saved" onclick="handleSave(this)" aria-label="Unsave recipe"><span class="material-icons-round">bookmark</span></button>
+            <button type="button" class="action-btn save-btn" onclick="handleSave(this)" aria-label="Save recipe"><span class="material-icons-round">bookmark_border</span></button>
           </div>
           <div class="recipe-info">
             <span class="badge-ready">✓ All ingredients</span>
@@ -285,36 +285,8 @@
           </div>
         </div>
 
-        <div class="recipe-card" data-name="Veggie Stir Fry">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
-          <div class="card-actions">
-            <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
-            <div class="action-divider"></div>
-            <button type="button" class="action-btn save-btn saved" onclick="handleSave(this)" aria-label="Unsave recipe"><span class="material-icons-round">bookmark</span></button>
-          </div>
-          <div class="recipe-info">
-            <span class="badge-ready">✓ All ingredients</span>
-            <p class="recipe-name">Veggie Stir Fry</p>
-            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 20 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 310 cal</p>
-          </div>
-        </div>
-
-        <div class="recipe-card" data-name="Tomato Soup">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
-          <div class="card-actions">
-            <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
-            <div class="action-divider"></div>
-            <button type="button" class="action-btn save-btn saved" onclick="handleSave(this)" aria-label="Unsave recipe"><span class="material-icons-round">bookmark</span></button>
-          </div>
-          <div class="recipe-info">
-            <span class="badge-ready">✓ All ingredients</span>
-            <p class="recipe-name">Tomato Soup</p>
-            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 25 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 210 cal</p>
-          </div>
-        </div>
-
-        <div class="recipe-card" data-name="Pasta Primavera">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+        <div class="recipe-card" data-name="Egg Fried Rice">
+          <a href="individual-recipe.php?recipe=Egg%20Fried%20Rice" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -322,22 +294,8 @@
           </div>
           <div class="recipe-info">
             <span class="badge-ready">✓ All ingredients</span>
-            <p class="recipe-name">Pasta Primavera</p>
-            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 25 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 420 cal</p>
-          </div>
-        </div>
-
-        <div class="recipe-card" data-name="Omelette">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
-          <div class="card-actions">
-            <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
-            <div class="action-divider"></div>
-            <button type="button" class="action-btn save-btn" onclick="handleSave(this)" aria-label="Save recipe"><span class="material-icons-round">bookmark_border</span></button>
-          </div>
-          <div class="recipe-info">
-            <span class="badge-ready">✓ All ingredients</span>
-            <p class="recipe-name">Omelette</p>
-            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 10 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 280 cal</p>
+            <p class="recipe-name">Egg Fried Rice</p>
+            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 15 min &nbsp;·&nbsp; <span class="material-icons-round">local_fire_department</span> 380 cal</p>
           </div>
         </div>
 
@@ -354,7 +312,7 @@
       <div class="card-row-wrapper"><div class="card-row" id="row-quick">
 
         <div class="recipe-card" data-name="Egg Fried Rice">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Egg%20Fried%20Rice" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -367,7 +325,7 @@
         </div>
 
         <div class="recipe-card" data-name="Greek Salad">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Greek%20Salad" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -380,7 +338,7 @@
         </div>
 
         <div class="recipe-card" data-name="Avocado Toast">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Avocado%20Toast" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -393,7 +351,7 @@
         </div>
 
         <div class="recipe-card" data-name="Quesadilla">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Quesadilla" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -406,7 +364,7 @@
         </div>
 
         <div class="recipe-card" data-name="Tuna Wrap">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Tuna%20Wrap" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -431,7 +389,7 @@
       <div class="card-row-wrapper"><div class="card-row" id="row-seasonal">
 
         <div class="recipe-card" data-name="Spring Pasta">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Spring%20Pasta" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -444,7 +402,7 @@
         </div>
 
         <div class="recipe-card" data-name="Asparagus Soup">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Asparagus%20Soup" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -457,7 +415,7 @@
         </div>
 
         <div class="recipe-card" data-name="Pea Risotto">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Pea%20Risotto" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -470,7 +428,7 @@
         </div>
 
         <div class="recipe-card" data-name="Strawberry Salad">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Strawberry%20Salad" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -483,7 +441,7 @@
         </div>
 
         <div class="recipe-card" data-name="Grilled Corn">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Grilled%20Corn" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -508,7 +466,7 @@
       <div class="card-row-wrapper"><div class="card-row" id="row-budget">
 
         <div class="recipe-card" data-name="Lentil Stew">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Lentil%20Stew" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -521,7 +479,7 @@
         </div>
 
         <div class="recipe-card" data-name="Bean Tacos">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Bean%20Tacos" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -534,7 +492,7 @@
         </div>
 
         <div class="recipe-card" data-name="Rice &amp; Beans">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Rice%20%26amp;%20Beans" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -547,7 +505,7 @@
         </div>
 
         <div class="recipe-card" data-name="Veggie Soup">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Veggie%20Soup" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -559,8 +517,21 @@
           </div>
         </div>
 
+
+        <div class="recipe-card" data-name="Tomato Soup">
+          <a href="individual-recipe.php?recipe=Tomato%20Soup" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <div class="card-actions">
+            <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
+            <div class="action-divider"></div>
+            <button type="button" class="action-btn save-btn" onclick="handleSave(this)" aria-label="Save recipe"><span class="material-icons-round">bookmark_border</span></button>
+          </div>
+          <div class="recipe-info">
+            <p class="recipe-name">Tomato Soup</p>
+            <p class="recipe-meta"><span class="material-icons-round">schedule</span> 25 min &nbsp;·&nbsp; $1.60/srv</p>
+          </div>
+        </div>
         <div class="recipe-card" data-name="Peanut Noodles">
-          <a href="individual-recipe.php" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
+          <a href="individual-recipe.php?recipe=Peanut%20Noodles" class="recipe-img"><span class="material-icons-round">restaurant</span></a>
           <div class="card-actions">
             <button type="button" class="action-btn add-btn" onclick="addToPlan(this)" aria-label="Add to Plan"><span class="material-icons-round">add_circle_outline</span></button>
             <div class="action-divider"></div>
@@ -763,6 +734,45 @@
         card.style.display = name.includes(query) ? 'block' : 'none';
       });
     });
+
+    // ── Pantry badge check — hero recipes only ──
+    const HERO_INGREDIENTS = {
+      'Chicken Rice':   ['Jasmine Rice', 'Chicken Breast', 'Garlic', 'Soy Sauce', 'Sesame Oil', 'Green Onions'],
+      'Egg Fried Rice': ['Jasmine Rice', 'Eggs', 'Soy Sauce', 'Sesame Oil', 'Garlic', 'Frozen Peas', 'Green Onions'],
+      'Tomato Soup':    ['Tomatoes', 'Onion', 'Garlic', 'Olive Oil', 'Vegetable Broth', 'Sugar', 'Fresh Basil'],
+    };
+
+    (function checkReadyToMake() {
+      const pantry = JSON.parse(localStorage.getItem('pantryItems') || '[]');
+
+      function isInPantry(ingredient) {
+        const ing = ingredient.toLowerCase();
+        return pantry.some(p => {
+          const pn = p.name.toLowerCase();
+          return pn.includes(ing) || ing.includes(pn.split(' ')[0]);
+        });
+      }
+
+      // For each hero recipe, check if all ingredients are in pantry.
+      // If yes, show badge on every card for that recipe across the page.
+      // If no, remove badge (including from the Ready to Make row).
+      Object.entries(HERO_INGREDIENTS).forEach(([recipeName, ingredients]) => {
+        const allReady = ingredients.every(ing => isInPantry(ing));
+        document.querySelectorAll(`.recipe-card[data-name="${recipeName}"]`).forEach(card => {
+          const info = card.querySelector('.recipe-info');
+          if (!info) return;
+          const existing = info.querySelector('.badge-ready');
+          if (allReady && !existing) {
+            const badge = document.createElement('span');
+            badge.className = 'badge-ready';
+            badge.textContent = '✓ All ingredients';
+            info.insertBefore(badge, info.firstChild);
+          } else if (!allReady && existing) {
+            existing.remove();
+          }
+        });
+      });
+    })();
   </script>
 
 </body>

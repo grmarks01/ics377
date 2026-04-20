@@ -573,11 +573,16 @@
     planItems[index].cost     = rd.cost  ?? planItems[index].cost     ?? '–';
 
     savePlan();
+    const added = syncGroceryList(pendingRecipe);
     pendingRecipe = null;
     window.history.replaceState({}, '', 'myplan.php');
     renderPlan();
     const item = planItems[index];
-    showToast((wasEmpty ? 'Added to ' : 'Updated ') + item.day + ', ' + item.date);
+    const base = (wasEmpty ? 'Added to ' : 'Updated ') + item.day + ', ' + item.date;
+    const suffix = added > 0
+      ? ' · ' + added + ' item' + (added > 1 ? 's' : '') + ' added to Grocery List'
+      : HERO_INGREDIENTS[item.meal] ? ' · All ingredients in pantry' : '';
+    showToast(base + suffix);
   }
 
   function removeMeal(index) {
@@ -611,6 +616,98 @@
     showToast("Week changed");
   }
 
+  // ── Ingredient lists for ALL recipes ──
+  // Hero recipes have accurate lists; all others use the same plausible lists
+  // shown on their individual recipe pages.
+  const HERO_INGREDIENTS = {
+    'Avocado Toast':    ['Sourdough Bread', 'Avocado', 'Lemon', 'Red Pepper Flakes'],
+    'Asparagus Soup':   ['Asparagus', 'Onion', 'Garlic', 'Vegetable Broth', 'Olive Oil'],
+    'Bean Tacos':       ['Black Beans', 'Tortillas', 'Lettuce', 'Tomato', 'Salsa'],
+    'Caesar Salad':     ['Romaine Lettuce', 'Caesar Dressing', 'Croutons', 'Parmesan'],
+    'Chicken Rice':     ['Jasmine Rice', 'Chicken Breast', 'Garlic', 'Soy Sauce', 'Sesame Oil', 'Green Onions'],
+    'Egg Fried Rice':   ['Jasmine Rice', 'Eggs', 'Soy Sauce', 'Sesame Oil', 'Garlic', 'Frozen Peas', 'Green Onions'],
+    'Greek Salad':      ['Cherry Tomatoes', 'Cucumber', 'Red Onion', 'Kalamata Olives', 'Feta Cheese', 'Olive Oil'],
+    'Grilled Corn':     ['Corn', 'Butter', 'Lime', 'Chili Powder'],
+    'Lentil Stew':      ['Red Lentils', 'Onion', 'Carrots', 'Garlic', 'Diced Tomatoes', 'Vegetable Broth', 'Cumin'],
+    'Mushroom Pasta':   ['Pasta', 'Mushrooms', 'Garlic', 'Olive Oil', 'Parmesan'],
+    'Omelette':         ['Eggs', 'Butter', 'Cheddar Cheese', 'Milk'],
+    'Pasta Primavera':  ['Pasta', 'Zucchini', 'Bell Pepper', 'Cherry Tomatoes', 'Garlic', 'Olive Oil', 'Parmesan'],
+    'Pea Risotto':      ['Arborio Rice', 'Frozen Peas', 'Onion', 'Vegetable Broth', 'Parmesan', 'Butter'],
+    'Peanut Noodles':   ['Noodles', 'Peanut Butter', 'Soy Sauce', 'Sesame Oil', 'Lime', 'Garlic'],
+    'Quesadilla':       ['Flour Tortillas', 'Cheddar Cheese', 'Black Beans', 'Bell Pepper'],
+    'Rice & Beans':     ['Long Grain Rice', 'Kidney Beans', 'Onion', 'Garlic', 'Diced Tomatoes', 'Cumin'],
+    'Spring Pasta':     ['Pasta', 'Snap Peas', 'Asparagus', 'Garlic', 'Olive Oil', 'Lemon'],
+    'Strawberry Salad': ['Mixed Greens', 'Strawberries', 'Walnuts', 'Feta Cheese', 'Balsamic Vinaigrette'],
+    'Tomato Soup':      ['Tomatoes', 'Onion', 'Garlic', 'Olive Oil', 'Vegetable Broth', 'Sugar', 'Fresh Basil'],
+    'Tuna Wrap':        ['Flour Tortillas', 'Tuna', 'Mayo', 'Lettuce', 'Tomato'],
+    'Veggie Soup':      ['Carrots', 'Celery', 'Onion', 'Diced Tomatoes', 'Vegetable Broth', 'Green Beans', 'Garlic'],
+    'Veggie Stir Fry':  ['Broccoli', 'Bell Pepper', 'Carrot', 'Garlic', 'Soy Sauce', 'Sesame Oil', 'Jasmine Rice'],
+  };
+
+  // ── Seed pantry with defaults if not yet initialised ──
+  // Keeps syncGroceryList accurate whether or not the user has visited pantry.php or index.php first.
+  const PANTRY_DEFAULTS = [
+    {name:'Chicken Breast', category:'Proteins', sub:'lb',     qty:2},
+    {name:'Jasmine Rice',   category:'Grains',   sub:'cups',   qty:4},
+    {name:'Soy Sauce',      category:'Staples',  sub:'bottle', qty:1},
+    {name:'Sesame Oil',     category:'Staples',  sub:'bottle', qty:1},
+    {name:'Ground Beef',    category:'Proteins', sub:'lb',     qty:1},
+    {name:'Eggs',           category:'Proteins', sub:'dozen',  qty:1},
+    {name:'Frozen Peas',    category:'Produce',  sub:'bag',    qty:1},
+    {name:'Garlic',         category:'Produce',  sub:'bulb',   qty:3},
+    {name:'Onions',         category:'Produce',  sub:'lb',     qty:2},
+  ];
+  if (!localStorage.getItem('pantryItems')) {
+    localStorage.setItem('pantryItems', JSON.stringify(PANTRY_DEFAULTS));
+  }
+
+  // ── Assign a real grocery category based on ingredient name ──
+  function guessCategory(name) {
+    const n = name.toLowerCase();
+    if (/chicken|beef|pork|tuna|salmon|shrimp|egg/.test(n))              return 'Proteins';
+    if (/rice|pasta|bread|noodle|tortilla|flour/.test(n))                return 'Grains';
+    if (/milk|cheese|butter|cream|yogurt|parmesan|feta/.test(n))        return 'Dairy';
+    if (/oil|sauce|broth|sugar|salt|pepper|spice|vinegar|soy/.test(n))  return 'Staples';
+    return 'Produce';
+  }
+
+  // ── Compare recipe ingredients against pantry, push missing to Grocery List ──
+  function syncGroceryList(recipeName) {
+    const ingredients = HERO_INGREDIENTS[recipeName];
+    if (!ingredients) return 0;
+
+    const pantry  = JSON.parse(localStorage.getItem('pantryItems')     || '[]');
+    const grocery = JSON.parse(localStorage.getItem('groceryItems_v5') || '[]');
+    let added = 0;
+
+    ingredients.forEach(ing => {
+      const ingLower = ing.toLowerCase();
+
+      // Check pantry
+      const inPantry = pantry.some(p => {
+        const pLow = p.name.toLowerCase();
+        return pLow.includes(ingLower) || ingLower.includes(pLow.split(' ')[0]);
+      });
+
+      if (!inPantry) {
+        const existingIdx = grocery.findIndex(g => g.name.toLowerCase() === ingLower);
+        if (existingIdx === -1) {
+          // Not in grocery at all — add it
+          grocery.push({ name: ing, category: guessCategory(ing), unit: '', price: 0, qty: 1, checked: false });
+          added++;
+        } else if (grocery[existingIdx].checked) {
+          // Was bought before — reset to unchecked so it can be bought again
+          grocery[existingIdx].checked = false;
+          added++;
+        }
+        // Already in grocery and unchecked — leave it, already on the list
+      }
+    });
+
+    localStorage.setItem('groceryItems_v5', JSON.stringify(grocery));
+    return added;
+  }
+
   let pendingRecipe = null;
 
   (function handleIncomingRecipe() {
@@ -634,10 +731,13 @@
         planItems[idx].calories = rd.cal   ?? planItems[idx].calories ?? '–';
         planItems[idx].cost     = rd.cost  ?? planItems[idx].cost     ?? '–';
         savePlan();
-        const item = planItems[idx];
-        setTimeout(() => showToast(
-          (wasEmpty ? 'Added to ' : 'Updated ') + item.day + ', ' + item.date
-        ), 300);
+        const added = syncGroceryList(name);
+        const item  = planItems[idx];
+        const base  = (wasEmpty ? 'Added to ' : 'Updated ') + item.day + ', ' + item.date;
+        const suffix = added > 0
+          ? ' · ' + added + ' item' + (added > 1 ? 's' : '') + ' added to Grocery List'
+          : HERO_INGREDIENTS[name] ? ' · All ingredients in pantry' : '';
+        setTimeout(() => showToast(base + suffix), 300);
       }
     } else {
       pendingRecipe = name;

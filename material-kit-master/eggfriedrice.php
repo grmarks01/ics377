@@ -1,25 +1,9 @@
-<?php
-$recipe = $_GET['recipe'] ?? '';
-
-$heroPages = [
-  'Chicken Rice'   => 'chickenrice.php',
-  'Egg Fried Rice' => 'eggfriedrice.php',
-  'Tomato Soup'    => 'tomatosoup.php',
-];
-
-if (isset($heroPages[$recipe])) {
-  header('Location: ' . $heroPages[$recipe]);
-  exit;
-}
-
-$recipeName = htmlspecialchars($recipe ?: 'Recipe');
-?>
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= $recipeName ?> - Recipe</title>
+<title>Egg Fried Rice - Recipe</title>
 
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
@@ -182,6 +166,21 @@ $recipeName = htmlspecialchars($recipe ?: 'Recipe');
     flex-shrink: 0;
   }
 
+  .ingredient-checkbox.in-pantry {
+    background: #A7BEAE;
+    border-color: #A7BEAE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ingredient-checkbox.in-pantry::after {
+    content: '✓';
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+
   .ingredient-checkbox.checked {
     background: var(--primary);
     border-color: var(--primary);
@@ -204,6 +203,37 @@ $recipeName = htmlspecialchars($recipe ?: 'Recipe');
   }
 
   .ingredient-text.checked { text-decoration: line-through; color: var(--text); }
+
+  .pantry-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #2e7d32;
+    background: #e8f5e9;
+    border-radius: 20px;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+
+  .missing-btn {
+    width: 100%;
+    margin-top: 16px;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: #fff3e0;
+    color: #e65100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: opacity 0.2s;
+  }
+
+  .missing-btn:hover { opacity: 0.85; }
+  .missing-btn.hidden { display: none; }
 
   .instruction-list {
     background: white;
@@ -269,14 +299,15 @@ $recipeName = htmlspecialchars($recipe ?: 'Recipe');
 
   .badge {
     display: inline-block;
-    background: #e8eaf6;
-    color: var(--dark);
     font-size: 0.75rem;
     font-weight: 700;
     border-radius: 20px;
     padding: 4px 12px;
     margin-bottom: 12px;
   }
+
+  .badge-ready  { background: #e8f5e9; color: #2e7d32; }
+  .badge-missing { background: #fff3e0; color: #e65100; }
 
   .toast {
     position: fixed;
@@ -315,22 +346,22 @@ $recipeName = htmlspecialchars($recipe ?: 'Recipe');
 
 <div class="content">
 
-  <span class="badge">Recipe Preview</span>
+  <span class="badge" id="pantryBadge">Checking pantry…</span>
 
-  <h1 class="recipe-title" id="recipeTitle"></h1>
+  <h1 class="recipe-title">Egg Fried Rice</h1>
 
   <div class="recipe-meta">
     <div class="meta-item">
       <span class="material-icons-round">schedule</span>
-      <span id="metaTime">–</span> minutes
+      15 minutes
     </div>
     <div class="meta-item">
       <span class="material-icons-round">local_fire_department</span>
-      <span id="metaCal">–</span> calories
+      380 calories
     </div>
     <div class="meta-item">
       <span class="material-icons-round">attach_money</span>
-      $<span id="metaCost">–</span> per serving
+      $8 per serving
     </div>
   </div>
 
@@ -339,7 +370,7 @@ $recipeName = htmlspecialchars($recipe ?: 'Recipe');
       <span class="material-icons-round">play_arrow</span>
       Start Cooking
     </button>
-    <button class="btn btn-secondary" id="addToPlanBtn">
+    <button class="btn btn-secondary" onclick="addToPlan()">
       <span class="material-icons-round">add_circle_outline</span>
       Add to Plan
     </button>
@@ -347,12 +378,43 @@ $recipeName = htmlspecialchars($recipe ?: 'Recipe');
 
   <div class="section">
     <h2 class="section-title">Ingredients</h2>
-    <div class="ingredient-list" id="ingredientList"></div>
+    <div class="ingredient-list" id="ingredientList">
+      <!-- populated by JS with pantry matching -->
+    </div>
+    <button class="missing-btn hidden" id="missingBtn" onclick="addMissingToGrocery()">
+      <span class="material-icons-round">add_shopping_cart</span>
+      <span id="missingBtnLabel">Add missing ingredients to Grocery List</span>
+    </button>
   </div>
 
   <div class="section">
     <h2 class="section-title">Instructions</h2>
-    <div class="instruction-list" id="instructionList"></div>
+    <div class="instruction-list">
+      <div class="instruction-item">
+        <div class="step-number">1</div>
+        <div class="step-text">Cook rice ahead of time and let it cool completely — day-old rice works best as it fries without clumping.</div>
+      </div>
+      <div class="instruction-item">
+        <div class="step-number">2</div>
+        <div class="step-text">Heat sesame oil in a large wok or skillet over high heat. Add garlic and stir-fry for 30 seconds until fragrant.</div>
+      </div>
+      <div class="instruction-item">
+        <div class="step-number">3</div>
+        <div class="step-text">Push garlic to the side and crack eggs into the wok. Scramble quickly, breaking into small pieces as they cook.</div>
+      </div>
+      <div class="instruction-item">
+        <div class="step-number">4</div>
+        <div class="step-text">Add the cold rice. Stir-fry everything together over high heat for 3–4 minutes, pressing the rice against the wok to get some crispy bits.</div>
+      </div>
+      <div class="instruction-item">
+        <div class="step-number">5</div>
+        <div class="step-text">Add soy sauce and frozen peas. Stir-fry for another 2 minutes until peas are heated through and everything is well combined.</div>
+      </div>
+      <div class="instruction-item">
+        <div class="step-number">6</div>
+        <div class="step-text">Taste and season with salt and pepper. Garnish with sliced green onions and serve immediately.</div>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -370,104 +432,101 @@ $recipeName = htmlspecialchars($recipe ?: 'Recipe');
 <div class="toast" id="toast"></div>
 
 <script>
-  const RECIPE_DATA = {
-    'Avocado Toast':    { time: 8,  cal: 290, cost: 3.50 },
-    'Asparagus Soup':   { time: 35, cal: 180, cost: 5.00 },
-    'Bean Tacos':       { time: 20, cal: 340, cost: 7.00 },
-    'Caesar Salad':     { time: 15, cal: 320, cost: 6.00 },
-    'Chicken Rice':     { time: 30, cal: 480, cost: 12.00 },
-    'Egg Fried Rice':   { time: 15, cal: 380, cost: 8.00 },
-    'Greek Salad':      { time: 10, cal: 220, cost: 5.00 },
-    'Grilled Corn':     { time: 20, cal: 200, cost: 4.00 },
-    'Lentil Stew':      { time: 40, cal: 290, cost: 6.00 },
-    'Mushroom Pasta':   { time: 25, cal: 510, cost: 9.00 },
-    'Omelette':         { time: 10, cal: 280, cost: 4.00 },
-    'Pasta Primavera':  { time: 25, cal: 420, cost: 8.00 },
-    'Pea Risotto':      { time: 40, cal: 520, cost: 11.00 },
-    'Peanut Noodles':   { time: 15, cal: 380, cost: 7.00 },
-    'Quesadilla':       { time: 12, cal: 430, cost: 6.00 },
-    'Rice & Beans':     { time: 30, cal: 320, cost: 5.00 },
-    'Spring Pasta':     { time: 25, cal: 490, cost: 9.00 },
-    'Strawberry Salad': { time: 10, cal: 160, cost: 5.00 },
-    'Tomato Soup':      { time: 25, cal: 210, cost: 5.00 },
-    'Tuna Wrap':        { time: 10, cal: 310, cost: 6.00 },
-    'Veggie Soup':      { time: 35, cal: 180, cost: 5.00 },
-    'Veggie Stir Fry':  { time: 20, cal: 310, cost: 7.00 },
-  };
-
-  const FALLBACK_INGREDIENTS = {
-    'Avocado Toast':    ['2 slices sourdough bread', '1 ripe avocado', '1 lemon, juiced', 'Red pepper flakes', 'Salt and pepper to taste'],
-    'Asparagus Soup':   ['1 bunch asparagus, trimmed', '1 onion, diced', '2 cloves garlic', '2 cups vegetable broth', '1 tbsp olive oil', 'Salt and pepper to taste'],
-    'Bean Tacos':       ['1 can black beans, drained', '8 small tortillas', '1 cup shredded lettuce', '1 tomato, diced', '½ cup salsa', '½ cup sour cream'],
-    'Caesar Salad':     ['1 head romaine lettuce', '½ cup Caesar dressing', '½ cup croutons', '¼ cup parmesan, shaved', 'Black pepper to taste'],
-    'Greek Salad':      ['2 cups cherry tomatoes', '1 cucumber, sliced', '½ red onion, sliced', '½ cup kalamata olives', '½ cup feta cheese', '3 tbsp olive oil'],
-    'Grilled Corn':     ['4 ears of corn', '2 tbsp butter', '1 lime', 'Chili powder to taste', 'Salt to taste'],
-    'Lentil Stew':      ['1 cup red lentils', '1 onion, diced', '2 carrots, diced', '2 cloves garlic', '1 can diced tomatoes', '3 cups vegetable broth', '1 tsp cumin'],
-    'Mushroom Pasta':   ['12 oz pasta', '2 cups mushrooms, sliced', '3 cloves garlic', '2 tbsp olive oil', '½ cup parmesan', 'Fresh parsley', 'Salt and pepper'],
-    'Omelette':         ['3 large eggs', '2 tbsp butter', '¼ cup cheese, shredded', '2 tbsp milk', 'Salt and pepper'],
-    'Pasta Primavera':  ['12 oz pasta', '1 zucchini, sliced', '1 bell pepper, sliced', '1 cup cherry tomatoes', '3 cloves garlic', '3 tbsp olive oil', 'Parmesan to serve'],
-    'Pea Risotto':      ['1½ cups arborio rice', '1 cup frozen peas', '1 onion, diced', '4 cups vegetable broth', '½ cup parmesan', '2 tbsp butter'],
-    'Peanut Noodles':   ['8 oz noodles', '3 tbsp peanut butter', '2 tbsp soy sauce', '1 tbsp sesame oil', '1 lime', '2 cloves garlic', 'Green onions to garnish'],
-    'Quesadilla':       ['4 large flour tortillas', '1½ cups shredded cheese', '½ cup black beans', '½ bell pepper, diced', '1 tbsp oil', 'Sour cream to serve'],
-    'Rice & Beans':     ['1 cup long grain rice', '1 can kidney beans, drained', '1 onion, diced', '2 cloves garlic', '1 can diced tomatoes', '1 tsp cumin'],
-    'Spring Pasta':     ['12 oz pasta', '1 cup snap peas', '1 cup asparagus, chopped', '2 cloves garlic', '3 tbsp olive oil', 'Lemon zest', 'Parmesan to serve'],
-    'Strawberry Salad': ['4 cups mixed greens', '1 cup strawberries, sliced', '¼ cup walnuts', '¼ cup feta cheese', '3 tbsp balsamic vinaigrette'],
-    'Tuna Wrap':        ['2 large flour tortillas', '1 can tuna, drained', '2 tbsp mayo', '1 cup lettuce', '1 tomato, sliced', 'Salt and pepper'],
-    'Veggie Soup':      ['2 carrots, diced', '2 celery stalks, diced', '1 onion, diced', '1 can diced tomatoes', '3 cups vegetable broth', '1 cup green beans', '2 cloves garlic'],
-    'Veggie Stir Fry':  ['2 cups broccoli florets', '1 bell pepper, sliced', '1 carrot, julienned', '2 cloves garlic', '2 tbsp soy sauce', '1 tbsp sesame oil', 'Cooked rice to serve'],
-  };
-
-  const DEFAULT_STEPS = [
-    'Gather and prep all ingredients — wash, chop, and measure everything before you start.',
-    'Heat your pan or pot over medium to medium-high heat with a little oil or butter.',
-    'Add aromatics (garlic, onion) first and cook until softened and fragrant, about 2–3 minutes.',
-    'Add the main ingredients and cook, stirring occasionally, until done.',
-    'Season with salt, pepper, and any spices. Taste and adjust.',
-    'Plate and serve immediately. Store leftovers in an airtight container for up to 3 days.',
+  // ── Ingredients for this recipe ──
+  const INGREDIENTS = [
+    { text: '3 cups cooked rice',        key: 'rice' },
+    { text: '3 eggs',                    key: 'egg' },
+    { text: '2 tbsp soy sauce',          key: 'soy sauce' },
+    { text: '1 tbsp sesame oil',         key: 'sesame oil' },
+    { text: '2 cloves garlic, minced',   key: 'garlic' },
+    { text: '1 cup frozen peas',         key: 'peas' },
+    { text: '2 green onions, chopped',   key: 'onion' },
+    { text: 'Salt and pepper to taste',  key: 'salt' },
   ];
 
-  // ── Read recipe name from URL ──
-  const params     = new URLSearchParams(window.location.search);
-  const recipeName = params.get('recipe') || 'Recipe';
-  const rd         = RECIPE_DATA[recipeName] || {};
+  // ── Load pantry from localStorage ──
+  const pantryItems = JSON.parse(localStorage.getItem('pantryItems') || '[]');
 
-  // ── Populate meta ──
-  document.getElementById('recipeTitle').textContent = recipeName;
-  document.getElementById('metaTime').textContent    = rd.time || '–';
-  document.getElementById('metaCal').textContent     = rd.cal  || '–';
-  document.getElementById('metaCost').textContent    = rd.cost ? rd.cost.toFixed(2) : '–';
-  document.getElementById('addToPlanBtn').onclick    = () => {
-    window.location.href = 'myplan.php?add=' + encodeURIComponent(recipeName);
-  };
+  function isInPantry(key) {
+    return pantryItems.some(p => p.name.toLowerCase().includes(key.toLowerCase())
+      || key.toLowerCase().includes(p.name.toLowerCase().split(' ')[0]));
+  }
 
-  // ── Ingredients (simple checklist, no pantry logic needed here) ──
-  const ingredients = FALLBACK_INGREDIENTS[recipeName] || ['See full recipe for ingredients.'];
-  const listEl      = document.getElementById('ingredientList');
+  // ── Build ingredient list with pantry matching ──
+  const listEl    = document.getElementById('ingredientList');
+  const missingBtn = document.getElementById('missingBtn');
+  const badgeEl   = document.getElementById('pantryBadge');
+  let missingItems = [];
 
-  ingredients.forEach(text => {
+  INGREDIENTS.forEach(ing => {
+    const inPantry = isInPantry(ing.key);
+    if (!inPantry) missingItems.push(ing.text);
+
     const item = document.createElement('div');
     item.className = 'ingredient-item';
     item.innerHTML = `
-      <div class="ingredient-checkbox" onclick="toggleIngredient(this)"></div>
-      <div class="ingredient-text">${text}</div>
+      <div class="ingredient-checkbox ${inPantry ? 'in-pantry' : ''}"
+           onclick="${inPantry ? '' : 'toggleIngredient(this)'}"></div>
+      <div class="ingredient-text">${ing.text}</div>
+      ${inPantry ? '<span class="pantry-tag">In Pantry</span>' : ''}
     `;
     listEl.appendChild(item);
   });
 
-  // ── Instructions ──
-  const instrEl = document.getElementById('instructionList');
-  DEFAULT_STEPS.forEach((step, i) => {
-    instrEl.innerHTML += `
-      <div class="instruction-item">
-        <div class="step-number">${i + 1}</div>
-        <div class="step-text">${step}</div>
-      </div>`;
-  });
+  // ── Badge and missing button ──
+  if (missingItems.length === 0) {
+    badgeEl.textContent = '✓ All ingredients in pantry';
+    badgeEl.className   = 'badge badge-ready';
+  } else {
+    badgeEl.textContent = missingItems.length + ' ingredient' + (missingItems.length > 1 ? 's' : '') + ' missing';
+    badgeEl.className   = 'badge badge-missing';
+    document.getElementById('missingBtnLabel').textContent =
+      'Add ' + missingItems.length + ' missing ingredient' + (missingItems.length > 1 ? 's' : '') + ' to Grocery List';
+    missingBtn.classList.remove('hidden');
+  }
 
-  // ── Helpers ──
+  // ── Toggle manual check ──
   function toggleIngredient(checkbox) {
     checkbox.classList.toggle('checked');
     checkbox.nextElementSibling.classList.toggle('checked');
+  }
+
+  // ── Grocery helpers ──
+  function guessCategory(name) {
+    const n = name.toLowerCase();
+    if (/chicken|beef|pork|tuna|salmon|shrimp|egg/.test(n))             return 'Proteins';
+    if (/rice|pasta|bread|noodle|tortilla|flour|crouton/.test(n))       return 'Grains';
+    if (/milk|cheese|butter|cream|yogurt|parmesan|feta/.test(n))        return 'Dairy';
+    if (/oil|sauce|broth|sugar|salt|pepper|spice|vinegar|soy/.test(n))  return 'Staples';
+    return 'Produce';
+  }
+
+  function extractName(rawText) {
+    return rawText
+      .split(',')[0]
+      .trim()
+      .replace(/^[\d½¼¾⅓⅔⅛]+\s*/, '')
+      .replace(/^(cups?|tbsp|tsp|oz|lbs?|g|kg|ml|l|cans?|bunch|head|cloves?|slices?|large|medium|small|fresh|frozen|dried)\s+/i, '')
+      .trim();
+  }
+
+  function addMissingToGrocery() {
+    const GROCERY_KEY = 'groceryItems_v5';
+    let groceryItems = JSON.parse(localStorage.getItem(GROCERY_KEY) || '[]');
+    let added = 0;
+
+    missingItems.forEach(text => {
+      const name = extractName(text);
+      if (!name) return;
+      if (!groceryItems.some(g => g.name.toLowerCase() === name.toLowerCase())) {
+        groceryItems.push({ name, category: guessCategory(name), unit: '', price: 0, qty: 1, checked: false });
+        added++;
+      }
+    });
+
+    localStorage.setItem(GROCERY_KEY, JSON.stringify(groceryItems));
+    showToast('Added ' + added + ' item' + (added !== 1 ? 's' : '') + ' to Grocery List');
+    missingBtn.classList.add('hidden');
   }
 
   function showToast(message) {
@@ -479,6 +538,10 @@ $recipeName = htmlspecialchars($recipe ?: 'Recipe');
 
   function startCooking() {
     showToast('Starting cooking mode…');
+  }
+
+  function addToPlan() {
+    window.location.href = 'myplan.php?add=Egg Fried Rice';
   }
 </script>
 

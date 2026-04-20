@@ -302,17 +302,18 @@
           <div class="toggle-left">
             <span class="material-icons-round" style="font-size:1.2rem;color:var(--primary);">kitchen</span>
             <span class="toggle-title">Pantry Status</span>
-            <span class="toggle-badge badge-warn">2 missing</span>
+            <span class="toggle-badge" id="pantryBadge">Checking…</span>
           </div>
           <span class="material-icons-round chevron">expand_more</span>
         </button>
         <div class="collapse-body" style="display:none;">
-          <p class="widget-detail">
-            <span class="highlight">2 ingredients are missing</span> for today's planned meals.
-            Generate a grocery list to fill the gaps.
-          </p>
-          <a href="grocery.php" class="widget-link">
+          <p class="widget-detail" id="pantryDetail">Checking your pantry…</p>
+          <a href="grocery.php" class="widget-link" id="pantryLink" style="display:none;">
             Generate Grocery List
+            <span class="material-icons-round" style="font-size:1rem;">arrow_forward</span>
+          </a>
+          <a href="pantry.php" class="widget-link" id="pantryViewLink">
+            View Pantry
             <span class="material-icons-round" style="font-size:1rem;">arrow_forward</span>
           </a>
         </div>
@@ -461,8 +462,9 @@
     const container = document.getElementById('todays-meals-container');
 
     if (todayItem && todayItem.meal) {
+      const recipeUrl = 'individual-recipe.php?recipe=' + encodeURIComponent(todayItem.meal);
       container.innerHTML = `
-        <a href="myplan.php" class="meal-card">
+        <a href="${recipeUrl}" class="meal-card">
           <div>
             <p class="meal-name">${todayItem.meal}</p>
             <p class="meal-meta">
@@ -500,6 +502,75 @@
       </tr>`;
     });
     table.innerHTML = rows;
+
+    // ── Seed pantry defaults if localStorage not yet set ──
+    // Mirrors pantry.php defaultItems so the widget works before user visits pantry.
+    if (!localStorage.getItem('pantryItems')) {
+      localStorage.setItem('pantryItems', JSON.stringify([
+        {name:'Chicken Breast', category:'Proteins', sub:'lb',     qty:2},
+        {name:'Jasmine Rice',   category:'Grains',   sub:'cups',   qty:4},
+        {name:'Soy Sauce',      category:'Staples',  sub:'bottle', qty:1},
+        {name:'Sesame Oil',     category:'Staples',  sub:'bottle', qty:1},
+        {name:'Ground Beef',    category:'Proteins', sub:'lb',     qty:1},
+        {name:'Eggs',           category:'Proteins', sub:'dozen',  qty:1},
+        {name:'Frozen Peas',    category:'Produce',  sub:'bag',    qty:1},
+        {name:'Garlic',         category:'Produce',  sub:'bulb',   qty:3},
+        {name:'Onions',         category:'Produce',  sub:'lb',     qty:2},
+      ]));
+    }
+
+    // ── Pantry Status widget ──
+    const HERO_INGREDIENTS = {
+      'Chicken Rice':   ['Jasmine Rice', 'Chicken Breast', 'Garlic', 'Soy Sauce', 'Sesame Oil', 'Green Onions'],
+      'Egg Fried Rice': ['Jasmine Rice', 'Eggs', 'Soy Sauce', 'Sesame Oil', 'Garlic', 'Frozen Peas', 'Green Onions'],
+      'Tomato Soup':    ['Tomatoes', 'Onion', 'Garlic', 'Olive Oil', 'Vegetable Broth', 'Sugar', 'Fresh Basil'],
+    };
+
+    (function updatePantryWidget() {
+      const pantry      = JSON.parse(localStorage.getItem('pantryItems') || '[]');
+      const pantryBadge  = document.getElementById('pantryBadge');
+      const pantryDetail = document.getElementById('pantryDetail');
+      const pantryLink   = document.getElementById('pantryLink');
+
+      function isInPantry(ingredient) {
+        const ing = ingredient.toLowerCase();
+        return pantry.some(p => {
+          const pn = p.name.toLowerCase();
+          return pn.includes(ing) || ing.includes(pn.split(' ')[0]);
+        });
+      }
+
+      // Check today's planned meal if it's a hero recipe
+      const todayMeal = todayItem && todayItem.meal ? todayItem.meal : null;
+      const heroIngs  = todayMeal ? HERO_INGREDIENTS[todayMeal] : null;
+
+      if (!todayMeal) {
+        pantryBadge.textContent  = 'No meal today';
+        pantryBadge.className    = 'toggle-badge';
+        pantryBadge.style.cssText = 'background:#eef2f7;color:var(--dark)';
+        pantryDetail.innerHTML   = 'No meal is planned for today. <a href="myplan.php" style="color:var(--primary);font-weight:600;">Add one →</a>';
+      } else if (!heroIngs) {
+        // Non-hero recipe — we don't have its ingredients
+        pantryBadge.textContent  = 'Check pantry';
+        pantryBadge.className    = 'toggle-badge';
+        pantryBadge.style.cssText = 'background:#eef2f7;color:var(--dark)';
+        pantryDetail.innerHTML   = 'Visit your pantry to check ingredients for <strong>' + todayMeal + '</strong>.';
+      } else {
+        const missing = heroIngs.filter(ing => !isInPantry(ing));
+        if (missing.length === 0) {
+          pantryBadge.textContent  = 'All stocked';
+          pantryBadge.className    = 'toggle-badge badge-ok';
+          pantryDetail.innerHTML   = 'You have everything you need for <strong>' + todayMeal + '</strong> tonight!';
+        } else {
+          pantryBadge.textContent  = missing.length + ' missing';
+          pantryBadge.className    = 'toggle-badge badge-warn';
+          pantryDetail.innerHTML   = '<span style="color:var(--primary);font-weight:600;">'
+            + missing.length + ' ingredient' + (missing.length > 1 ? 's' : '') + ' missing</span>'
+            + ' for <strong>' + todayMeal + '</strong>: ' + missing.join(', ') + '.';
+          pantryLink.style.display = 'inline-flex';
+        }
+      }
+    })();
 
     // ── Budget Summary widget ──
     const budgetGoal  = parseFloat(localStorage.getItem(BUDGET_KEY) || '80');

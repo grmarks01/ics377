@@ -639,7 +639,10 @@
     {name:"Chicken Breast", category:"Proteins", sub:"lb",     qty:2},
     {name:"Jasmine Rice",   category:"Grains",   sub:"cups",   qty:4},
     {name:"Soy Sauce",      category:"Staples",  sub:"bottle", qty:1},
+    {name:"Sesame Oil",     category:"Staples",  sub:"bottle", qty:1},
     {name:"Ground Beef",    category:"Proteins", sub:"lb",     qty:1},
+    {name:"Eggs",           category:"Proteins", sub:"dozen",  qty:1},
+    {name:"Frozen Peas",    category:"Produce",  sub:"bag",    qty:1},
     {name:"Garlic",         category:"Produce",  sub:"bulb",   qty:3},
     {name:"Onions",         category:"Produce",  sub:"lb",     qty:2}
   ];
