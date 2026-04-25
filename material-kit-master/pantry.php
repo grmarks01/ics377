@@ -633,7 +633,11 @@
     Grocery List
   </a>
 </nav>
-
+<footer style="text-align:center; padding: 16px; margin-bottom: 80px; font-size: 0.75rem; color: var(--text);">
+  Built with <a href="https://www.creative-tim.com/product/material-kit" target="_blank" style="color:var(--text); font-weight:600;">Material Kit 3</a>
+  by <a href="https://www.creative-tim.com" target="_blank" style="color:var(--text); font-weight:600;">Creative Tim</a>,
+  licensed under <a href="https://github.com/creativetimofficial/material-kit/blob/master/LICENSE.md" target="_blank" style="color:var(--text); font-weight:600;">MIT</a>.
+</footer>
 <script>
   const defaultItems = [
     {name:"Chicken Breast", category:"Proteins", sub:"lb",     qty:2},
